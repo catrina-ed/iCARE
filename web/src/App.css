@@ -1,0 +1,286 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  background-color: #29261b;
+  color: #f6f4ef;
+}
+
+.app {
+  min-height: 100vh;
+  padding: 24px 0 60px;
+}
+
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+  padding-top: 16px;
+}
+
+.greeting {
+  font-size: 14px;
+  color: #a89b8d;
+  margin-bottom: 8px;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: 700;
+  color: #f6f4ef;
+}
+
+.alert-toggle {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 12px;
+}
+
+/* Sections */
+.section {
+  margin-bottom: 32px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #f6f4ef;
+  margin-bottom: 16px;
+}
+
+/* Alerts */
+.alert {
+  background-color: #3d3a30;
+  border-left: 4px solid #e8614f;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.alert-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f6f4ef;
+  margin-bottom: 8px;
+}
+
+.alert-subtitle {
+  font-size: 14px;
+  color: #a89b8d;
+}
+
+/* Card */
+.card {
+  background-color: #4a4640;
+  border: 1px solid #4a4640;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 32px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #f6f4ef;
+  margin-bottom: 16px;
+}
+
+/* Summary */
+.summary-card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.summary-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.summary-item {
+  flex: 1;
+  text-align: center;
+}
+
+.summary-number {
+  font-size: 28px;
+  font-weight: 700;
+  color: #6b9f8d;
+  margin-bottom: 8px;
+}
+
+.summary-label {
+  font-size: 14px;
+  color: #a89b8d;
+}
+
+/* Actions */
+.actions-grid {
+  display: flex;
+  gap: 12px;
+}
+
+.action-button {
+  flex: 1;
+  background-color: #4a4640;
+  border: 1px solid #4a4640;
+  border-radius: 16px;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-button:hover {
+  background-color: #5a5650;
+}
+
+.action-icon {
+  font-size: 20px;
+}
+
+.action-label {
+  font-size: 12px;
+  color: #f6f4ef;
+  font-weight: 500;
+}
+
+/* Dose Item */
+.dose-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #4a4640;
+}
+
+.dose-info {
+  display: flex;
+  gap: 12px;
+  flex: 1;
+}
+
+.dose-time {
+  font-size: 16px;
+  font-weight: 600;
+  color: #6b9f8d;
+  min-width: 40px;
+}
+
+.dose-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #f6f4ef;
+}
+
+.dose-details {
+  font-size: 14px;
+  color: #a89b8d;
+}
+
+.dose-status {
+  border: 1px solid #6b9f8d;
+  background-color: rgba(107, 159, 141, 0.1);
+  border-radius: 12px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b9f8d;
+}
+
+/* Log Entry */
+.log-entry {
+  padding: 12px 0;
+  border-bottom: 1px solid #4a4640;
+}
+
+.log-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.log-time {
+  font-size: 14px;
+  color: #a89b8d;
+}
+
+.log-author {
+  font-size: 14px;
+  font-weight: 500;
+  color: #f6f4ef;
+}
+
+.log-text {
+  font-size: 14px;
+  color: #f6f4ef;
+  line-height: 1.5;
+}
+
+.badge {
+  font-size: 11px;
+  font-weight: 600;
+  background-color: #8b6b9e;
+  color: #29261b;
+  padding: 4px 8px;
+  border-radius: 12px;
+}
+
+/* On Duty */
+.on-duty-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.on-duty-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  background-color: #d4a855;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #29261b;
+  font-size: 16px;
+}
+
+.on-duty-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f6f4ef;
+}
+
+.on-duty-time {
+  font-size: 14px;
+  color: #a89b8d;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    max-width: 100%;
+  }
+
+  .summary-number {
+    font-size: 24px;
+  }
+}

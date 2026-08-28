@@ -20,6 +20,8 @@ import { Moments } from './screens/Moments'
 import { Nutrition } from './screens/Nutrition'
 import { CareStory } from './screens/CareStory'
 import { Connectors } from './screens/Connectors'
+import { VoiceSheet } from './voice/VoiceSheet'
+import { useEffect, useState } from 'react'
 import { Team } from './screens/Team'
 import { useSession } from './hooks/useSession'
 import { isSupabaseConfigured } from './lib/supabase'
@@ -28,6 +30,16 @@ import { SignIn } from './components/SignIn'
 function Shell() {
   const { role } = useCare()
   const isRecipient = role === 'recipient'
+  const [voiceOpen, setVoiceOpen] = useState(false)
+
+  // Home's "Talk to iCare" card lives inside a route; the sheet lives out here
+  // so the floating mic can open it from any screen. An event keeps them
+  // connected without threading state through the router.
+  useEffect(() => {
+    const open = () => setVoiceOpen(true)
+    window.addEventListener('icare:voice', open)
+    return () => window.removeEventListener('icare:voice', open)
+  }, [])
 
   // Hiding a tab is not enough — a stale hash would otherwise walk straight
   // into a screen Gail should not see, so the routes redirect too.
@@ -37,7 +49,7 @@ function Shell() {
   return (
     <div className="app" style={{ backgroundColor: COLORS.bg, color: COLORS.text }}>
       <div className="container">
-        {isRecipient && <div className="view-badge">Gail's view</div>}
+        {isRecipient && <div className="view-badge">{'Gail\u2019s view'}</div>}
         <RoleSwitcher />
         <Routes>
           <Route path="/"          element={<Home />} />
@@ -59,6 +71,12 @@ function Shell() {
       {/* Mounted once at the shell so a dose can be logged from any screen. */}
       <DoseToast />
       <DoseSheet />
+      {isRecipient && (
+        <>
+          <button className="voice-fab" onClick={() => setVoiceOpen(true)} aria-label="Talk to iCare">🎙</button>
+          <VoiceSheet open={voiceOpen} onClose={() => setVoiceOpen(false)} />
+        </>
+      )}
     </div>
   )
 }

@@ -469,3 +469,30 @@ export const MEAL_SUGGESTIONS = [
   { id: 'd', meal: 'Dinner', dish: 'Baked salmon, steamed green beans, brown rice',
     why: 'Supports Condition C · avoids Allergy A' },
 ];
+
+// Contacts for voice mode. Generic by design — real clinicians and real
+// numbers belong in the database, not the repo.
+export const CONTACTS = [
+  { id: 'primary',   name: 'Primary care',      specialty: 'Primary care',      phone: '(555) 555-0114' },
+  { id: 'specialist',name: 'Specialist',        specialty: 'Specialist',        phone: '(555) 555-0177' },
+  { id: 'therapy',   name: 'Therapy clinic',    specialty: 'Physical therapy',  phone: '(555) 555-0143' },
+  { id: 'pharmacy',  name: 'Pharmacy',          specialty: 'Pharmacy',          phone: '(555) 555-0100' },
+];
+
+// Public-domain (KJV) verses and plain affirmations. Static reference content.
+export const AFFIRMATIONS = [
+  "You are loved, and today you don't have to carry anything alone.",
+  'Rest is not something you have to earn. You are allowed to slow down.',
+  'You have made it through every hard day so far. That matters.',
+  "It's okay to have a quiet day. You don't owe anyone your energy.",
+  'Someone is grateful for you today, even if they forget to say it.',
+  "You don't have to be strong every moment. Soft days count too.",
+];
+
+export const VERSES = [
+  { ref: 'Psalm 23:1', text: 'The Lord is my shepherd; I shall not want.' },
+  { ref: 'Psalm 118:24', text: 'This is the day which the Lord hath made; we will rejoice and be glad in it.' },
+  { ref: 'Isaiah 41:10', text: 'Fear thou not; for I am with thee: be not dismayed; for I am thy God.' },
+  { ref: 'Psalm 46:1', text: 'God is our refuge and strength, a very present help in trouble.' },
+  { ref: 'Lamentations 3:22-23', text: 'His compassions fail not. They are new every morning.' },
+];

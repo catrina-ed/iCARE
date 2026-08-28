@@ -79,6 +79,17 @@ export function Home() {
         </div>
       </div>
 
+      {isRecipient && (
+        <button className="voice-cta" onClick={() => window.dispatchEvent(new CustomEvent('icare:voice'))}>
+          <span className="voice-cta-mic">🎙</span>
+          <span className="voice-cta-body">
+            <span className="voice-cta-title">Talk to iCare</span>
+            <span className="voice-cta-sub">Log a note, take your medicine, or ask what's next</span>
+          </span>
+          <span className="more-chev">›</span>
+        </button>
+      )}
+
       {/* Who is here right now — the first thing a caretaker checks. */}
       <div className="card onshift">
         <div className="onshift-avatar">{onShift?.initials}</div>

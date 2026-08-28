@@ -22,7 +22,7 @@ component with the right name exists.
 | 11 | Nutrition | `nutrition.jsx` | Done |
 | 12 | Care Story | `care-story.jsx` | Done |
 | 13 | Connectors | `connectors.jsx` | Done (sample-data banner added) |
-| 14 | Voice mode (Gail only) | `voice.jsx` | Not started |
+| 14 | Voice mode (Gail only) | `voice.jsx` | Done (speech untested on a real device) |
 | 15 | Day-one / empty states | `day-one.jsx` | Not started |
 | 16 | Desktop reflow | `desktop.jsx` | Not started |
 

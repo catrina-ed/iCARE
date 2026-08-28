@@ -11,6 +11,7 @@ import { Meds } from './screens/Meds'
 import { Calendar } from './screens/Calendar'
 import { CareLog } from './screens/CareLog'
 import { Supplies } from './screens/Supplies'
+import { Team } from './screens/Team'
 import { useSession } from './hooks/useSession'
 import { isSupabaseConfigured } from './lib/supabase'
 import { SignIn } from './components/SignIn'
@@ -36,6 +37,7 @@ function Shell() {
           <Route path="/calendar"  element={<Calendar />} />
           <Route path="/notes"     element={guard(<CareLog />)} />
           <Route path="/supplies"  element={guard(<Supplies />)} />
+          <Route path="/team"      element={guard(<Team />)} />
           <Route path="*"          element={<Home />} />
         </Routes>
       </div>

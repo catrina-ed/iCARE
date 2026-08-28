@@ -2,11 +2,11 @@ import { USERS } from 'shared/data';
 import { useCare } from '../state/CareProvider';
 
 const ROLE_LABEL: Record<string, string> = {
-  admin: 'Primary caretaker · Admin',
-  'co-caretaker': 'Personal Assistant',
-  professional: 'Caregiver, CNA',
+  'master-admin': 'Primary caretaker',
+  admin: 'Admin',
+  pa: 'Personal Assistant',
+  family: 'Family',
   recipient: 'Care recipient',
-  network: 'Family',
 };
 
 /**
@@ -17,7 +17,7 @@ const ROLE_LABEL: Record<string, string> = {
  * of the product, and that is impossible to show from a single fixed account.
  */
 export function RoleSwitcher() {
-  const { currentUser, setCurrentUser } = useCare();
+  const { currentUser, setCurrentUser, adminIds } = useCare();
   const ids = Object.keys(USERS);
 
   return (
@@ -31,6 +31,7 @@ export function RoleSwitcher() {
         {ids.map(id => (
           <option key={id} value={id}>
             {USERS[id].name} — {ROLE_LABEL[USERS[id].role] ?? USERS[id].role}
+            {adminIds.includes(id) && USERS[id].role !== 'master-admin' ? ' · Admin' : ''}
           </option>
         ))}
       </select>

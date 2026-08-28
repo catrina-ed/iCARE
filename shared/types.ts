@@ -1,6 +1,16 @@
 // iCare shared types
 
-export type UserRole = 'admin' | 'co-caretaker' | 'professional' | 'recipient' | 'network';
+/**
+ * Who someone is in the care circle.
+ *
+ * `master-admin` is the circle's owner: the only role that can grant or revoke
+ * admin. `admin` is capped — see ADMIN_LIMIT — because seeing confidential
+ * notes should be a deliberate, small grant rather than something that spreads.
+ */
+export type UserRole = 'master-admin' | 'admin' | 'pa' | 'family' | 'recipient';
+
+/** Total number of people who may hold admin, the master admin included. */
+export const ADMIN_LIMIT = 2;
 
 export interface User {
   id: string;

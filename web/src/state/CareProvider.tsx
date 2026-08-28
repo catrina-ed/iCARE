@@ -3,6 +3,7 @@ import {
   TODAYS_DOSES_MORNING, CARE_LOG, CARE_TASKS, SHOPPING_ITEMS,
 } from 'shared/data';
 import { USERS } from 'shared/data';
+import { ADMIN_LIMIT } from 'shared/types';
 import type {
   Dose, CareLogEntry, CareLogTag, CareTask, ShoppingItem, UserRole,
 } from 'shared/types';
@@ -24,7 +25,14 @@ interface CareState {
   currentUser: string;
   setCurrentUser: (id: string) => void;
   role: UserRole;
+  /** True for the master admin and for anyone they have granted admin to. */
   isAdmin: boolean;
+  isMasterAdmin: boolean;
+  /** Everyone holding admin right now, master admin first. */
+  adminIds: string[];
+  adminSlotsLeft: number;
+  grantAdmin: (userId: string) => void;
+  revokeAdmin: (userId: string) => void;
   logDose: (medicationId: string, time: string, notes: string) => void;
   addNote: (text: string, tag: CareLogTag, confidential: boolean) => void;
   completeTask: (taskId: string, notes: string) => void;
@@ -38,8 +46,21 @@ const Ctx = createContext<CareState | null>(null);
 export function CareProvider({ children }: { children: React.ReactNode }) {
   // Persisted so a role chosen while demoing survives a refresh.
   const [currentUser, setCurrentUser] = usePersistentState<string>('currentUser', 'trina');
-  const role = USERS[currentUser]?.role ?? 'admin';
-  const isAdmin = role === 'admin';
+  const role: UserRole = USERS[currentUser]?.role ?? 'master-admin';
+
+  // The master admin is fixed by the data; additional admins are a grant the
+  // master admin makes, so they are stored rather than derived.
+  const masterAdminId = Object.keys(USERS).find(id => USERS[id].role === 'master-admin') ?? 'trina';
+  const [grantedAdminIds, setGrantedAdminIds] = usePersistentState<string[]>('grantedAdmins', []);
+
+  const adminIds = useMemo(
+    () => [masterAdminId, ...grantedAdminIds.filter(id => id !== masterAdminId)],
+    [masterAdminId, grantedAdminIds],
+  );
+
+  const isMasterAdmin = currentUser === masterAdminId;
+  const isAdmin = adminIds.includes(currentUser);
+  const adminSlotsLeft = Math.max(0, ADMIN_LIMIT - adminIds.length);
 
   const [doses, setDoses] = usePersistentState<Dose[]>('doses', TODAYS_DOSES_MORNING);
   const [careLog, setCareLog] = usePersistentState<CareLogEntry[]>('careLog', CARE_LOG);
@@ -64,6 +85,24 @@ export function CareProvider({ children }: { children: React.ReactNode }) {
     setCurrentUser,
     role,
     isAdmin,
+    isMasterAdmin,
+    adminIds,
+    adminSlotsLeft,
+
+    grantAdmin: (userId) => {
+      // Silently ignoring the overflow would look like a bug; the caller
+      // disables the control, so reaching here means the cap was bypassed.
+      if (adminIds.length >= ADMIN_LIMIT) return;
+      if (adminIds.includes(userId)) return;
+      setGrantedAdminIds([...grantedAdminIds, userId]);
+    },
+
+    // The master admin's own role comes from the data, so it cannot be
+    // revoked here — there is always at least one admin.
+    revokeAdmin: (userId) => {
+      if (userId === masterAdminId) return;
+      setGrantedAdminIds(grantedAdminIds.filter(id => id !== userId));
+    },
 
     logDose: (medicationId, time, notes) => {
       const dose: Dose = {
@@ -119,7 +158,9 @@ export function CareProvider({ children }: { children: React.ReactNode }) {
       setShopping(SHOPPING_ITEMS);
     },
   }), [doses, careLog, visibleCareLog, tasks, shopping, currentUser, setCurrentUser,
-       role, isAdmin, setDoses, setCareLog, setTasks, setShopping]);
+       role, isAdmin, isMasterAdmin, adminIds, adminSlotsLeft, masterAdminId,
+       grantedAdminIds, setGrantedAdminIds,
+       setDoses, setCareLog, setTasks, setShopping]);
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

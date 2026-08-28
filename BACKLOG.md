@@ -25,6 +25,7 @@ problem the day a real note about Mom's health is entered.
 | 4 | Invite flow for the care team | Before anyone but Trina signs in | Open |
 | 5 | Decide what the public repo may hold | Before real data of any kind | Open |
 | 6 | Finish the auth flow end to end | After the 2026-08-28 presentation | Open |
+| 7 | Apply migration 0004 (role rework) | Before the app reads from the database | Open |
 
 ### 1. Split Supabase into separate dev and prod projects
 **Trigger: before inviting anyone real.**
@@ -88,6 +89,18 @@ Magic-link sign-in is built and the email sends, but the flow is not complete:
   the local part of their email as their display name.
 - Auth is deliberately NOT enabled on the deployed site, so the demo needs no
   login. Turning it on requires build-time env vars in the Actions workflow.
+
+### 7. Apply migration 0004, the role rework
+**Trigger: before the app reads from the database.**
+The role model changed on 2026-08-27 — master-admin / admin / pa / family /
+recipient, with admin capped at two people and only the master admin able to
+grant it. `supabase/migrations/0004_roles.sql` rewrites the enum, widens
+`is_household_admin` to cover both admin roles, and adds a trigger enforcing
+the cap in the database rather than trusting the UI.
+
+It has NOT been run, and `verify-rls.sql` has not been re-run against it. Both
+should happen together, since the RLS test inserts `'professional'`, a role
+that no longer exists.
 
 ---
 

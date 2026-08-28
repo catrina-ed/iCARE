@@ -21,6 +21,7 @@ const GROUPS = [
     tabs: [
       { to: '/notes',    label: 'Notes',    icon: '📝' },
       { to: '/supplies', label: 'Supplies', icon: '🛒' },
+      { to: '/team',     label: 'Circle',   icon: '👥' },
     ],
   },
 ];

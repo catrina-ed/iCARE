@@ -1,4 +1,4 @@
--- iCare — full schema setup.
+-- iCare - full schema setup.
 -- Paste this whole file into the Supabase SQL Editor and press Run.
 -- Safe to run once, on an empty project.
 

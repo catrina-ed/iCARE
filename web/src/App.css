@@ -354,3 +354,335 @@ body {
   color: #f6f4ef;
   border-color: #6b9f8d;
 }
+
+/* Bottom tab bar */
+.app {
+  /* Room for the fixed tab bar plus the iPhone home indicator. */
+  padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+}
+
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  background-color: #221f16;
+  border-top: 1px solid #4a4640;
+  padding: 8px 0 calc(8px + env(safe-area-inset-bottom, 0px));
+  z-index: 100;
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 0;
+  text-decoration: none;
+  color: #a89b8d;
+  /* Comfortable thumb target. */
+  min-height: 44px;
+}
+
+.tab-active {
+  color: #6b9f8d;
+}
+
+.tab-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.tab-label {
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* Medication rows */
+.med-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid #4a4640;
+}
+
+.med-main { flex: 1; }
+
+.med-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #f6f4ef;
+}
+
+.med-dose {
+  font-weight: 400;
+  color: #a89b8d;
+}
+
+.med-instructions {
+  font-size: 14px;
+  color: #f6f4ef;
+  opacity: 0.8;
+  margin-top: 2px;
+}
+
+.med-meta {
+  font-size: 13px;
+  color: #a89b8d;
+  margin-top: 4px;
+}
+
+.med-stock { text-align: center; min-width: 48px; }
+.med-stock-number { font-size: 20px; font-weight: 600; }
+.med-stock-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+/* Appointments */
+.appt-card {
+  border-left: 3px solid #6b9f8d;
+  margin-bottom: 12px;
+}
+
+.appt-time {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b9f8d;
+}
+
+.appt-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #f6f4ef;
+  margin-top: 4px;
+}
+
+.appt-meta {
+  font-size: 14px;
+  color: #a89b8d;
+  margin-top: 4px;
+}
+
+.appt-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.appt-prep {
+  font-size: 13px;
+  color: #a89b8d;
+  font-style: italic;
+}
+
+/* Care log filters */
+.filter-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+  /* Chips scroll sideways rather than wrapping into a tall block. */
+  -webkit-overflow-scrolling: touch;
+}
+
+.filter-chip {
+  flex: 0 0 auto;
+  background: none;
+  border: 1px solid #4a4640;
+  border-radius: 999px;
+  color: #a89b8d;
+  font-family: inherit;
+  font-size: 14px;
+  padding: 8px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.filter-chip[data-active='true'] {
+  border-color: #6b9f8d;
+  color: #6b9f8d;
+  background-color: rgba(107, 159, 141, 0.12);
+}
+
+.log-card { margin-bottom: 12px; }
+
+.empty-state {
+  color: #a89b8d;
+  font-size: 15px;
+  padding: 12px 0;
+  text-align: center;
+}
+
+/* Supplies */
+.supply-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #4a4640;
+}
+
+.supply-emoji { font-size: 20px; }
+.supply-body { flex: 1; }
+
+.supply-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #f6f4ef;
+}
+
+.supply-name-done {
+  color: #a89b8d;
+  text-decoration: line-through;
+}
+
+.supply-meta {
+  font-size: 13px;
+  color: #a89b8d;
+  margin-top: 2px;
+}
+
+.supply-btn {
+  background: none;
+  border: 1px solid #4a4640;
+  border-radius: 8px;
+  color: #f6f4ef;
+  font-family: inherit;
+  font-size: 14px;
+  padding: 10px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.supply-done {
+  color: #6b9f8d;
+  font-size: 18px;
+  padding: 0 10px;
+}
+
+.supplies-hint {
+  font-size: 13px;
+  color: #a89b8d;
+  line-height: 1.6;
+  padding: 4px 4px 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Desktop.
+
+   Default is an ordinary centred web layout, because someone opening the link
+   on a laptop is a real user, not an audience. The phone frame is opt-in via
+   the toggle and exists for demoing, not for daily use.
+   --------------------------------------------------------------------------- */
+@media (min-width: 900px) {
+  body {
+    min-height: 100vh;
+    background-color: #29261b;
+  }
+
+  .container {
+    max-width: 560px;
+  }
+
+  .app {
+    padding-bottom: 100px;
+  }
+
+  /* The tab bar spanning a 1440px window looks wrong; keep it to the column. */
+  .tab-bar {
+    max-width: 560px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    border-left: 1px solid #4a4640;
+    border-right: 1px solid #4a4640;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .view-toggle {
+    display: block;
+  }
+}
+
+/* Phone-frame mode: opt-in, desktop only. */
+@media (min-width: 900px) {
+  :root[data-view='phone'] body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background:
+      radial-gradient(1200px 600px at 50% -10%, #3d3a30 0%, #201d15 60%, #17150f 100%);
+  }
+
+  :root[data-view='phone'] #root {
+    display: flex;
+    justify-content: center;
+  }
+
+  :root[data-view='phone'] .app {
+    width: 402px;
+    height: 874px;
+    flex: 0 0 auto;
+    border: 12px solid #100e09;
+    border-radius: 52px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    box-shadow: 0 40px 90px rgba(0, 0, 0, 0.6), 0 0 0 2px #2a2720;
+    padding: 20px 0 0;
+    scrollbar-width: none;
+    /* Layout stays a true 402x874 so it behaves exactly like a phone; only the
+       presentation is scaled. Unscaled, a Mac's ~110 DPI makes the frame about
+       a third larger than the real device. */
+    transform: scale(0.8);
+    transform-origin: center center;
+    margin: -87px -40px;
+  }
+
+  :root[data-view='phone'] .app::-webkit-scrollbar { display: none; }
+
+  :root[data-view='phone'] .container { max-width: 100%; }
+
+  /* Fixed would pin this to the browser window, outside the phone. */
+  :root[data-view='phone'] .tab-bar {
+    position: sticky;
+    bottom: 0;
+    left: auto;
+    right: auto;
+    transform: none;
+    max-width: 100%;
+    margin-top: 24px;
+    padding-bottom: 8px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+}
+
+/* Hidden on real phones, where the toggle would be meaningless. */
+.view-toggle {
+  display: none;
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 200;
+  background-color: #3d3a30;
+  border: 1px solid #4a4640;
+  border-radius: 999px;
+  color: #a89b8d;
+  font-family: inherit;
+  font-size: 13px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.view-toggle:hover {
+  color: #f6f4ef;
+  border-color: #6b9f8d;
+}

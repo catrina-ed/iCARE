@@ -20,10 +20,11 @@ problem the day a real note about Mom's health is entered.
 | # | Item | Trigger | Status |
 |---|------|---------|--------|
 | 1 | Split Supabase into dev and prod | Before inviting anyone real | Open |
-| 2 | Make the app use the database | Now — current work | In progress |
-| 3 | Real SMTP for magic links | **Hit 2026-08-27** — blocking sign-in testing | **Blocking** |
+| 2 | Make the app use the database | Blocked on #3, or on a dev user | Paused |
+| 3 | Real SMTP for magic links | Hit 2026-08-27; deferred by choice to build screens first | Deferred |
 | 4 | Invite flow for the care team | Before anyone but Trina signs in | Open |
 | 5 | Decide what the public repo may hold | Before real data of any kind | Open |
+| 6 | Finish the auth flow end to end | After the 2026-08-28 presentation | Open |
 
 ### 1. Split Supabase into separate dev and prod projects
 **Trigger: before inviting anyone real.**
@@ -70,6 +71,23 @@ notes, no screenshots with real health details in the README.
 ### Cleared
 
 Nothing yet.
+
+### 6. Finish the auth flow end to end
+**Trigger: after the 2026-08-28 presentation.**
+Magic-link sign-in is built and the email sends, but the flow is not complete:
+
+- Redirect URL config is unverified — the first attempt landed on an
+  unreachable page, most likely Supabase's default `localhost:3000` Site URL.
+- Sign-in cannot be tested repeatedly until #3 (SMTP) is done. A dev-only
+  password login against a user created by hand in the dashboard would unblock
+  this without touching email.
+- `currentUser` is still hardcoded to `'trina'`; it should come from the
+  session, which is also what makes the confidential-notes rule observable in
+  the UI.
+- No profile setup — magic-link signup carries no name, so people land with
+  the local part of their email as their display name.
+- Auth is deliberately NOT enabled on the deployed site, so the demo needs no
+  login. Turning it on requires build-time env vars in the Actions workflow.
 
 ---
 
@@ -119,7 +137,14 @@ by the web-first decision; revisit once the web MVP is validated.
 Appointments, bills, and handoffs have types in `shared/types.ts` but no
 tables, no data, and no UI.
 
-### 14. Offline behaviour
+### 14. A real desktop layout
+The web app is a phone column centred on a laptop screen. That is honest and
+fine, but it wastes a large screen — a caretaker doing paperwork at a computer
+could see the calendar, med schedule, and notes side by side rather than
+scrolling one narrow column. The phone-frame toggle is a demo aid, not an
+answer to this.
+
+### 15. Offline behaviour
 Caretakers will use this in places with bad signal. Currently a failed request
 just loses the action.
 

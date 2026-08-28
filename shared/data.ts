@@ -441,3 +441,9 @@ export const EXERCISE_LOG: ExerciseSession[] = [
   { id: 'e5', type: 'Dancing',          minutes: 10, intensity: 'moderate', note: 'Danced to the radio in the kitchen', by: 'gail', date: day(-1) },
   { id: 'e6', type: 'Stretching',       minutes: 10, intensity: 'light',                                            by: 'gail',     date: day(-1) },
 ];
+
+// Who is on shift, by time of day. Drives the "on shift" card on Home.
+export const ON_SHIFT = {
+  morning: { who: 'catina', from: '8:00 AM', to: '6:00 PM' },
+  evening: { who: 'trina',  from: '6:00 PM', to: '10:00 PM' },
+};

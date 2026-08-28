@@ -14,7 +14,7 @@ component with the right name exists.
 | 3 | Dose-logging core — one tap, undo toast, not-taken sheet, Log all N | `dose-log.jsx` | Done |
 | 4 | Meds screen — time buckets, progress bar with skipped segment | `meds.jsx` | Done (sub-tabs pending) |
 | 5 | Tab restructure — Home / Meds / Move / Log / More | `app.jsx` | Done |
-| 6 | Home dashboard — summary cells, alert rows with "Log it", up next | `dashboard.jsx` | Not started |
+| 6 | Home dashboard — summary cells, alert rows with "Log it", up next | `dashboard.jsx` | Done |
 | 7 | Care Log — compose box, tags, confidential toggle | `carelog.jsx` | Not started |
 | 8 | Calendar — week strip, attendee filter | `calendar.jsx` | Not started |
 | 9 | Movement | `exercise.jsx` | Done |

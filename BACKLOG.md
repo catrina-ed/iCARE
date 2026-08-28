@@ -57,7 +57,12 @@ the app being broken.
 Note the rate limit for the built-in sender cannot be raised; configuring
 custom SMTP is what unlocks the Auth rate-limit settings.
 
-Fix: connect an SMTP provider (Resend and Postmark both have free tiers).
+Fix: connect an SMTP provider. Brevo or SendGrid suit this best — both allow a
+verified single sender, so no custom domain is needed yet. Deliverability
+improves later if iCare gets its own domain.
+
+This is now the only route to testing sign-in, since the dev password login
+was declined (see #6).
 
 ### 4. Invite flow for the care team
 **Trigger: before anyone but Trina signs in.**
@@ -86,8 +91,10 @@ Magic-link sign-in is built and the email sends, but the flow is not complete:
 - Redirect URL config is unverified — the first attempt landed on an
   unreachable page, most likely Supabase's default `localhost:3000` Site URL.
 - Sign-in cannot be tested repeatedly until #3 (SMTP) is done. A dev-only
-  password login against a user created by hand in the dashboard would unblock
-  this without touching email.
+  password login was considered and **declined** on 2026-08-28: magic link is
+  the only auth this product should have, and a second path is a second thing
+  that must be gated out of production. Do not re-propose it. SMTP is the
+  unblock.
 - `currentUser` is still hardcoded to `'trina'`; it should come from the
   session, which is also what makes the confidential-notes rule observable in
   the UI.

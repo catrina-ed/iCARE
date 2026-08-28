@@ -4,7 +4,7 @@ Ordered by when it has to be handled, not by size. The trigger column matters
 more than the ordering: some of these are harmless today and become urgent the
 moment a specific thing changes.
 
-Last reviewed: 2026-08-27
+Last reviewed: 2026-08-28
 
 ---
 
@@ -23,10 +23,11 @@ problem the day a real note about Mom's health is entered.
 | 2 | Make the app use the database | Blocked on #3, or on a dev user | Paused |
 | 3 | Real SMTP for magic links | Hit 2026-08-27; deferred by choice to build screens first | Deferred |
 | 4 | Invite flow for the care team | Before anyone but Trina signs in | Open |
-| 5 | Decide what the public repo may hold | Before real data of any kind | Open |
+| 5 | Make the repo private, move deploy to Netlify | Decided 2026-08-28; Catrina actioning | Open |
 | 6 | Finish the auth flow end to end | After the 2026-08-28 presentation | Open |
 | 7 | Apply migration 0004 (role rework) | Before the app reads from the database | Open |
 | 8 | Gate demo affordances behind VITE_DEMO_MODE | Before production auth goes live | Open |
+| 9 | Rotate the Supabase publishable key | It reached git history on 2026-08-27 | Open |
 
 ### 1. Split Supabase into separate dev and prod projects
 **Trigger: before inviting anyone real.**
@@ -64,15 +65,19 @@ Fix: connect an SMTP provider (Resend and Postmark both have free tiers).
 Markyaah, Destiny, Catina, or Darren to join a household. Right now a second
 person signing in lands in an empty app with no route in.
 
-### 5. Decide what the public repo may contain
-**Trigger: before real data of any kind.**
-`catrina-ed/iCARE` is public, which is what makes Pages free. Real care data
-must live only in the database, never in the repo — no seed files with real
-notes, no screenshots with real health details in the README.
+### 5. Make the repo private and move the deploy to Netlify
+**Decided 2026-08-28. Catrina is actioning this.**
+`catrina-ed/iCARE` is public, which is what makes GitHub Pages free. Going
+private means Pages needs a paid plan — but Netlify deploys private repos on
+its free tier, and Catrina already has an account there.
 
-### Cleared
+Note what this does and does not fix: the surnames are gone from the current
+files and the live bundle, but they remain in git history for every commit
+before `defeef1`. Private is the practical answer; a history rewrite would be
+disruptive and would not have helped the already-public deploy.
 
-Nothing yet.
+Real care data must live only in the database regardless — no seed files with
+real notes, no screenshots with real health details in the README.
 
 ### 6. Finish the auth flow end to end
 **Trigger: after the 2026-08-28 presentation.**
@@ -115,6 +120,25 @@ Proven to work in this project: with `VITE_SUPABASE_URL` unset, Vite already
 drops the whole Supabase SDK, taking the bundle from 137KB gzipped to 85KB.
 
 See `ARCHITECTURE.md`.
+
+### 9. Rotate the Supabase publishable key
+**Trigger: it reached git history on 2026-08-27.**
+Renaming `.env.local` to `.env.local.disabled` took it out of the `*.local`
+ignore rule and it was committed in `ef0ee12` with the project URL and
+publishable key. Untracked again in `9e4a84e`, and the ignore rule widened to
+`.env.local*`.
+
+The key is designed to be public and is guarded by RLS, so this is tidiness
+rather than an incident — but rotating is two clicks in Project Settings > API
+and removes the loose end. Update `web/.env.local.off` afterwards.
+
+### Cleared
+
+- **Surnames removed from published data** (2026-08-28, `defeef1`). The care
+  circle's first names are real and the surnames were invented; publishing both
+  together read as a real identifiable family. Display names, `fullName`, and
+  the surname-derived initials are gone, and the live bundle was checked
+  directly to confirm. Part of the wider work in #5.
 
 ---
 

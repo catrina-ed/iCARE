@@ -54,6 +54,14 @@ export const USERS: Record<string, User> = {
     relationship: 'Caregiver',
     initials: 'CA',
   },
+  gail: {
+    id: 'gail',
+    name: 'Gail H.',
+    fullName: 'Gail Hayes',
+    role: 'recipient',
+    relationship: 'Mom',
+    initials: 'GH',
+  },
   darren: {
     id: 'darren',
     name: 'Darren',
@@ -231,8 +239,48 @@ export const APPOINTMENTS: Appointment[] = [
 // Care log entries
 export const CARE_LOG: CareLogEntry[] = [
   {
+    id: 'c7',
+    timestamp: '2026-08-27T18:20:00',
+    author: 'trina',
+    tag: 'health',
+    text: 'Spoke with Dr. Williams about the swelling in her ankles. She wants us tracking weight every morning before breakfast, same scale each time.',
+    confidential: false,
+  },
+  {
+    id: 'c8',
+    timestamp: '2026-08-27T17:05:00',
+    author: 'trina',
+    tag: 'mood',
+    text: 'Mom asked me again whether she is a burden. Third time this month. I want to raise it with Dr. Williams privately before saying anything to the wider team.',
+    confidential: true,
+  },
+  {
+    id: 'c9',
+    timestamp: '2026-08-27T15:30:00',
+    author: 'markyaah',
+    tag: 'mobility',
+    text: 'Walked to the corner and back, no cane. Slower on the way home but steady. She was proud of it.',
+    confidential: false,
+  },
+  {
+    id: 'c10',
+    timestamp: '2026-08-27T13:15:00',
+    author: 'destiny',
+    tag: 'nutrition',
+    text: 'Ate about half of lunch. Said the soup was too salty. Made her a yogurt with berries after and she finished that.',
+    confidential: false,
+  },
+  {
+    id: 'c11',
+    timestamp: '2026-08-27T12:40:00',
+    author: 'markyaah',
+    tag: 'general',
+    text: 'She mentioned money worries again while we were folding laundry. Flagging for Trina only, did not want to put it in the open log.',
+    confidential: true,
+  },
+  {
     id: 'c1',
-    timestamp: '2026-06-05T07:15:00',
+    timestamp: '2026-08-27T07:15:00',
     author: 'catina',
     tag: 'general',
     text: 'Slept well, woke at 6:30. Had coffee and oatmeal with banana. Good mood, hummed along to the radio.',
@@ -240,7 +288,7 @@ export const CARE_LOG: CareLogEntry[] = [
   },
   {
     id: 'c2',
-    timestamp: '2026-06-05T09:10:00',
+    timestamp: '2026-08-27T09:10:00',
     author: 'catina',
     tag: 'meds',
     text: 'Morning meds taken without fuss. Needed to split one of them with applesauce.',
@@ -248,7 +296,7 @@ export const CARE_LOG: CareLogEntry[] = [
   },
   {
     id: 'c3',
-    timestamp: '2026-06-05T11:40:00',
+    timestamp: '2026-08-27T11:40:00',
     author: 'catina',
     tag: 'general',
     text: 'All good today — we played cards together for a while. No issues.',
@@ -256,7 +304,7 @@ export const CARE_LOG: CareLogEntry[] = [
   },
   {
     id: 'c4',
-    timestamp: '2026-06-05T11:48:00',
+    timestamp: '2026-08-27T11:48:00',
     author: 'catina',
     tag: 'mood',
     text: 'Seemed a little disoriented this morning — asked twice about Dad. Mood lifted by lunchtime. Letting Trina know.',
@@ -264,7 +312,7 @@ export const CARE_LOG: CareLogEntry[] = [
   },
   {
     id: 'c5',
-    timestamp: '2026-06-05T12:30:00',
+    timestamp: '2026-08-27T12:30:00',
     author: 'catina',
     tag: 'nutrition',
     text: 'Lunch: half a turkey sandwich, cucumber slices, ginger tea. Ate about 60%.',
@@ -272,7 +320,7 @@ export const CARE_LOG: CareLogEntry[] = [
   },
   {
     id: 'c6',
-    timestamp: '2026-06-05T14:10:00',
+    timestamp: '2026-08-27T14:10:00',
     author: 'catina',
     tag: 'mobility',
     text: 'Walked to mailbox and back. About 12 minutes, no cane needed today.',
@@ -291,7 +339,7 @@ export const ALERTS_MORNING_ALERT: Alert[] = [
     title: '1:00 PM dose — missed',
     subtitle: 'No dose logged · 32 min past window',
     relatedId: 'mv',
-    timestamp: '2026-06-05T13:32:00',
+    timestamp: '2026-08-27T13:32:00',
   },
   {
     id: 'al2',
@@ -300,7 +348,7 @@ export const ALERTS_MORNING_ALERT: Alert[] = [
     title: 'Furosemide running low',
     subtitle: '6 days remaining · refill at pharmacy',
     relatedId: 'fur',
-    timestamp: '2026-06-05T13:30:00',
+    timestamp: '2026-08-27T13:30:00',
   },
 ];
 
@@ -312,7 +360,7 @@ export const ALERTS_EVENING_CALM: Alert[] = [
     title: '9:00 PM dose coming up',
     subtitle: 'In 2 hours · assigned to Trina',
     relatedId: 'ato',
-    timestamp: '2026-06-05T19:00:00',
+    timestamp: '2026-08-27T19:00:00',
   },
 ];
 
@@ -324,7 +372,7 @@ export const ALERTS_EVENING_ALERT: Alert[] = [
     title: '6:00 PM dose — due 18 min ago',
     subtitle: 'Trina is on shift · tap to log',
     relatedId: 'mem',
-    timestamp: '2026-06-05T18:18:00',
+    timestamp: '2026-08-27T18:18:00',
   },
   {
     id: 'al5',
@@ -332,7 +380,7 @@ export const ALERTS_EVENING_ALERT: Alert[] = [
     severity: 'warn',
     title: 'Comfort Keepers invoice overdue',
     subtitle: '$420 · due Jun 3 · assigned Markyaah',
-    timestamp: '2026-06-05T18:00:00',
+    timestamp: '2026-08-27T18:00:00',
   },
   {
     id: 'al6',
@@ -340,7 +388,7 @@ export const ALERTS_EVENING_ALERT: Alert[] = [
     severity: 'info',
     title: 'Catina finished handoff at 6:02 PM',
     subtitle: '3 items flagged for Trina',
-    timestamp: '2026-06-05T18:02:00',
+    timestamp: '2026-08-27T18:02:00',
   },
 ];
 

@@ -2,8 +2,9 @@ import { createContext, useContext, useMemo } from 'react';
 import {
   TODAYS_DOSES_MORNING, CARE_LOG, CARE_TASKS, SHOPPING_ITEMS,
 } from 'shared/data';
+import { USERS } from 'shared/data';
 import type {
-  Dose, CareLogEntry, CareLogTag, CareTask, ShoppingItem,
+  Dose, CareLogEntry, CareLogTag, CareTask, ShoppingItem, UserRole,
 } from 'shared/types';
 import { usePersistentState, resetPersistedState } from '../hooks/usePersistentState';
 
@@ -18,7 +19,12 @@ interface CareState {
   careLog: CareLogEntry[];
   tasks: CareTask[];
   shopping: ShoppingItem[];
+  /** Every note, regardless of who may see it. Admin-only in practice. */
+  allCareLog: CareLogEntry[];
   currentUser: string;
+  setCurrentUser: (id: string) => void;
+  role: UserRole;
+  isAdmin: boolean;
   logDose: (medicationId: string, time: string, notes: string) => void;
   addNote: (text: string, tag: CareLogTag, confidential: boolean) => void;
   completeTask: (taskId: string, notes: string) => void;
@@ -30,15 +36,34 @@ interface CareState {
 const Ctx = createContext<CareState | null>(null);
 
 export function CareProvider({ children }: { children: React.ReactNode }) {
-  const currentUser = 'trina';
+  // Persisted so a role chosen while demoing survives a refresh.
+  const [currentUser, setCurrentUser] = usePersistentState<string>('currentUser', 'trina');
+  const role = USERS[currentUser]?.role ?? 'admin';
+  const isAdmin = role === 'admin';
 
   const [doses, setDoses] = usePersistentState<Dose[]>('doses', TODAYS_DOSES_MORNING);
   const [careLog, setCareLog] = usePersistentState<CareLogEntry[]>('careLog', CARE_LOG);
   const [tasks, setTasks] = usePersistentState<CareTask[]>('tasks', CARE_TASKS);
   const [shopping, setShopping] = usePersistentState<ShoppingItem[]>('shopping', SHOPPING_ITEMS);
 
+  // Mirrors the database policy: a confidential note is visible only to its
+  // author and to admins. Enforced again here so the UI cannot show what the
+  // backend would refuse to return.
+  const visibleCareLog = useMemo(
+    () => careLog.filter(e => !e.confidential || e.author === currentUser || isAdmin),
+    [careLog, currentUser, isAdmin],
+  );
+
   const value = useMemo<CareState>(() => ({
-    doses, careLog, tasks, shopping, currentUser,
+    doses,
+    careLog: visibleCareLog,
+    allCareLog: careLog,
+    tasks,
+    shopping,
+    currentUser,
+    setCurrentUser,
+    role,
+    isAdmin,
 
     logDose: (medicationId, time, notes) => {
       const dose: Dose = {
@@ -93,7 +118,8 @@ export function CareProvider({ children }: { children: React.ReactNode }) {
       setTasks(CARE_TASKS);
       setShopping(SHOPPING_ITEMS);
     },
-  }), [doses, careLog, tasks, shopping, setDoses, setCareLog, setTasks, setShopping]);
+  }), [doses, careLog, visibleCareLog, tasks, shopping, currentUser, setCurrentUser,
+       role, isAdmin, setDoses, setCareLog, setTasks, setShopping]);
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

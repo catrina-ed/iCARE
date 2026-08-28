@@ -1,9 +1,11 @@
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'
 import './App.css'
 import { COLORS } from 'shared/theme'
 import { CareProvider } from './state/CareProvider'
 import { BottomTabs } from './components/BottomTabs'
 import { ViewToggle } from './components/ViewToggle'
+import { RoleSwitcher } from './components/RoleSwitcher'
+import { useCare } from './state/CareProvider'
 import { Home } from './screens/Home'
 import { Meds } from './screens/Meds'
 import { Calendar } from './screens/Calendar'
@@ -14,15 +16,26 @@ import { isSupabaseConfigured } from './lib/supabase'
 import { SignIn } from './components/SignIn'
 
 function Shell() {
+  const { role } = useCare()
+  const isRecipient = role === 'recipient'
+
+  // Gail's view is Home and Calendar only. Hiding the tabs is not enough —
+  // a stale hash would otherwise walk straight into a screen she should not
+  // see, so the routes themselves redirect.
+  const guard = (el: React.ReactElement) =>
+    isRecipient ? <Navigate to="/" replace /> : el
+
   return (
     <div className="app" style={{ backgroundColor: COLORS.bg, color: COLORS.text }}>
       <div className="container">
+        {isRecipient && <div className="view-badge">Gail's view</div>}
+        <RoleSwitcher />
         <Routes>
           <Route path="/"          element={<Home />} />
-          <Route path="/meds"      element={<Meds />} />
+          <Route path="/meds"      element={guard(<Meds />)} />
           <Route path="/calendar"  element={<Calendar />} />
-          <Route path="/notes"     element={<CareLog />} />
-          <Route path="/supplies"  element={<Supplies />} />
+          <Route path="/notes"     element={guard(<CareLog />)} />
+          <Route path="/supplies"  element={guard(<Supplies />)} />
           <Route path="*"          element={<Home />} />
         </Routes>
       </div>

@@ -1075,3 +1075,82 @@ body {
     min-height: 50px;
   }
 }
+
+/* Role switching (demo control) */
+.role-switcher {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 10px 12px;
+  background-color: #2b2820;
+  border: 1px dashed #4a4640;
+  border-radius: 10px;
+}
+
+.role-switcher-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8a7f72;
+  white-space: nowrap;
+}
+
+.role-switcher-select {
+  flex: 1;
+  min-width: 0;
+  background-color: transparent;
+  border: none;
+  color: #f6f4ef;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  /* 16px avoids iOS Safari zooming the page when the select is focused. */
+  padding: 4px 0;
+}
+
+.role-switcher-select option {
+  background-color: #322e23;
+  color: #f6f4ef;
+}
+
+/* Admin-only reassurance that they are seeing everything. */
+.primary-view-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  border: 1px dashed #6b5073;
+  border-radius: 12px;
+  font-size: 13px;
+  color: #a89b8d;
+  line-height: 1.5;
+}
+
+.primary-view-note strong { color: #8b6b9e; }
+
+.primary-view-icon { font-size: 15px; }
+
+.view-badge {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background-color: rgba(139, 107, 158, 0.22);
+  color: #a885b3;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 900px) {
+  .role-switcher,
+  .view-badge,
+  .primary-view-note {
+    grid-column: 1 / -1;
+  }
+}

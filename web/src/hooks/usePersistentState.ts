@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 
-const PREFIX = 'icare:v1:';
+// Bumping this version discards previously stored data, which is what we want
+// whenever the seed data changes — otherwise a phone keeps showing the old
+// mock content forever and the change looks like it did not deploy.
+const PREFIX = 'icare:v2:';
 
 /**
  * useState that mirrors its value into localStorage.

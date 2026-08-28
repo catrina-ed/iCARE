@@ -18,7 +18,7 @@ const STATUS_COLORS: Record<string, string> = {
 
 export function Home() {
   const { session } = useSession();
-  const { doses, careLog, tasks, currentUser, logDose, addNote, completeTask, resetAll } = useCare();
+  const { doses, careLog, tasks, currentUser, isAdmin, logDose, addNote, completeTask, resetAll } = useCare();
 
   const [showAlerts, setShowAlerts] = useState(false);
   const [isLogDoseOpen, setIsLogDoseOpen] = useState(false);
@@ -73,6 +73,16 @@ export function Home() {
               {alert.subtitle && <div className="alert-subtitle">{alert.subtitle}</div>}
             </div>
           ))}
+        </div>
+      )}
+
+      {isAdmin && (
+        <div className="primary-view-note">
+          <span className="primary-view-icon">🛡</span>
+          <span>
+            <strong>Primary view.</strong> You can see confidential entries from
+            any caretaker.
+          </span>
         </div>
       )}
 

@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { GAIL, USERS } from 'shared/data';
+import { useCare } from '../state/CareProvider';
 
 /**
  * One component, two shapes: a bottom tab bar on phones and a grouped sidebar
@@ -24,8 +25,16 @@ const GROUPS = [
   },
 ];
 
+/** Gail sees her own day, not the coordination machinery around it. */
+const RECIPIENT_TABS = ['/', '/calendar'];
+
 export function BottomTabs() {
-  const user = USERS.trina;
+  const { currentUser, role } = useCare();
+  const user = USERS[currentUser] ?? USERS.trina;
+  const groups = role === 'recipient'
+    ? GROUPS.map(g => ({ ...g, tabs: g.tabs.filter(t => RECIPIENT_TABS.includes(t.to)) }))
+        .filter(g => g.tabs.length > 0)
+    : GROUPS;
 
   return (
     <nav className="tab-bar">
@@ -38,11 +47,13 @@ export function BottomTabs() {
         <div className="nav-avatar">{user.initials}</div>
         <div className="nav-profile-text">
           <div className="nav-profile-name">{user.name}</div>
-          <div className="nav-profile-role">{GAIL.name}'s circle</div>
+          <div className="nav-profile-role">
+            {role === 'recipient' ? 'Your care' : `${GAIL.name}'s circle`}
+          </div>
         </div>
       </div>
 
-      {GROUPS.map(group => (
+      {groups.map(group => (
         <div className="nav-group" key={group.label}>
           <div className="nav-group-label">{group.label}</div>
           {group.tabs.map(tab => (

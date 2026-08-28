@@ -26,6 +26,7 @@ problem the day a real note about Mom's health is entered.
 | 5 | Decide what the public repo may hold | Before real data of any kind | Open |
 | 6 | Finish the auth flow end to end | After the 2026-08-28 presentation | Open |
 | 7 | Apply migration 0004 (role rework) | Before the app reads from the database | Open |
+| 8 | Gate demo affordances behind VITE_DEMO_MODE | Before production auth goes live | Open |
 
 ### 1. Split Supabase into separate dev and prod projects
 **Trigger: before inviting anyone real.**
@@ -101,6 +102,19 @@ the cap in the database rather than trusting the UI.
 It has NOT been run, and `verify-rls.sql` has not been re-run against it. Both
 should happen together, since the RLS test inserts `'professional'`, a role
 that no longer exists.
+
+### 8. Gate the demo affordances behind a build-time flag
+**Trigger: before production auth goes live, and before any real person signs in.**
+The role switcher, the "Reset demo data" button, and the seed data must not
+exist in a production bundle. A runtime check is not enough — it leaves the
+switcher in the shipped JavaScript where devtools can reach it and grant
+someone admin. A build-time `VITE_DEMO_MODE` flag lets Vite eliminate the
+branch, so the code is not in the file at all.
+
+Proven to work in this project: with `VITE_SUPABASE_URL` unset, Vite already
+drops the whole Supabase SDK, taking the bundle from 137KB gzipped to 85KB.
+
+See `ARCHITECTURE.md`.
 
 ---
 

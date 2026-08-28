@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local Supabase config, including parked variants. Never commit these.
+.env.local*
+.env*.local

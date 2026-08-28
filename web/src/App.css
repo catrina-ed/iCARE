@@ -5,9 +5,9 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-  background-color: #29261b;
-  color: #f6f4ef;
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #1B1815;
+  color: #F0E6D6;
 }
 
 .app {
@@ -32,14 +32,14 @@ body {
 
 .greeting {
   font-size: 14px;
-  color: #a89b8d;
+  color: #ADA192;
   margin-bottom: 8px;
 }
 
 .name {
   font-size: 24px;
   font-weight: 700;
-  color: #f6f4ef;
+  color: #F0E6D6;
 }
 
 .alert-toggle {
@@ -58,7 +58,7 @@ body {
 .section-title {
   font-size: 12px;
   font-weight: 600;
-  color: #a89b8d;
+  color: #ADA192;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: 12px;
@@ -66,8 +66,8 @@ body {
 
 /* Alerts */
 .alert {
-  background-color: #322e23;
-  border-left: 4px solid #e8614f;
+  background-color: #25211C;
+  border-left: 4px solid #CB7B5C;
   padding: 16px;
   border-radius: 12px;
   margin-bottom: 12px;
@@ -76,22 +76,22 @@ body {
 .alert-title {
   font-size: 16px;
   font-weight: 600;
-  color: #f6f4ef;
+  color: #F0E6D6;
   margin-bottom: 8px;
 }
 
 .alert-subtitle {
   font-size: 14px;
-  color: #a89b8d;
+  color: #ADA192;
 }
 
 /* Card
-   Was #4a4640 on a #29261b page with a border the same colour as the fill,
+   Was rgba(240,230,214,0.14) on a #1B1815 page with a border the same colour as the fill,
    which read as a flat grey block. A smaller step up from the page plus a
    lighter border gives separation without shouting. */
 .card {
-  background-color: #322e23;
-  border: 1px solid #423d31;
+  background-color: #25211C;
+  border: 1px solid rgba(240,230,214,0.08);
   border-radius: 14px;
   padding: 20px;
   margin-bottom: 16px;
@@ -100,7 +100,7 @@ body {
 .card-title {
   font-size: 15px;
   font-weight: 600;
-  color: #f6f4ef;
+  color: #F0E6D6;
   letter-spacing: 0.01em;
   margin-bottom: 14px;
   display: flex;
@@ -140,13 +140,13 @@ body {
 .summary-number {
   font-size: 30px;
   font-weight: 700;
-  color: #6b9f8d;
+  color: #94AE82;
   margin-bottom: 8px;
 }
 
 .summary-label {
   font-size: 14px;
-  color: #a89b8d;
+  color: #ADA192;
 }
 
 /* Actions */
@@ -157,8 +157,8 @@ body {
 
 .action-button {
   flex: 1;
-  background-color: #322e23;
-  border: 1px solid #423d31;
+  background-color: #25211C;
+  border: 1px solid rgba(240,230,214,0.08);
   border-radius: 14px;
   padding: 16px 12px;
   display: flex;
@@ -171,7 +171,7 @@ body {
 
 .action-button:hover {
   background-color: #3b3628;
-  border-color: #6b9f8d;
+  border-color: #94AE82;
 }
 
 .action-icon {
@@ -180,7 +180,7 @@ body {
 
 .action-label {
   font-size: 12px;
-  color: #f6f4ef;
+  color: #F0E6D6;
   font-weight: 500;
 }
 
@@ -190,7 +190,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 12px 0;
-  border-bottom: 1px solid #3b3629;
+  border-bottom: 1px solid rgba(240,230,214,0.08);
 }
 
 .dose-info {
@@ -202,35 +202,35 @@ body {
 .dose-time {
   font-size: 16px;
   font-weight: 600;
-  color: #6b9f8d;
+  color: #94AE82;
   min-width: 40px;
 }
 
 .dose-name {
   font-size: 16px;
   font-weight: 500;
-  color: #f6f4ef;
+  color: #F0E6D6;
 }
 
 .dose-details {
   font-size: 14px;
-  color: #a89b8d;
+  color: #ADA192;
 }
 
 .dose-status {
-  border: 1px solid #6b9f8d;
-  background-color: rgba(107, 159, 141, 0.1);
+  border: 1px solid #94AE82;
+  background-color: rgba(148, 174, 130, 0.1);
   border-radius: 12px;
   padding: 8px 12px;
   font-size: 12px;
   font-weight: 500;
-  color: #6b9f8d;
+  color: #94AE82;
 }
 
 /* Log Entry */
 .log-entry {
   padding: 12px 0;
-  border-bottom: 1px solid #3b3629;
+  border-bottom: 1px solid rgba(240,230,214,0.08);
 }
 
 .log-header {
@@ -242,26 +242,26 @@ body {
 
 .log-time {
   font-size: 14px;
-  color: #a89b8d;
+  color: #ADA192;
 }
 
 .log-author {
   font-size: 14px;
   font-weight: 500;
-  color: #f6f4ef;
+  color: #F0E6D6;
 }
 
 .log-text {
   font-size: 14px;
-  color: #f6f4ef;
+  color: #F0E6D6;
   line-height: 1.5;
 }
 
 .badge {
   font-size: 11px;
   font-weight: 600;
-  background-color: #8b6b9e;
-  color: #29261b;
+  background-color: #B89BC9;
+  color: #1B1815;
   padding: 4px 8px;
   border-radius: 12px;
 }
@@ -277,24 +277,24 @@ body {
   width: 48px;
   height: 48px;
   border-radius: 24px;
-  background-color: #d4a855;
+  background-color: #D9A86A;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  color: #29261b;
+  color: #1B1815;
   font-size: 16px;
 }
 
 .on-duty-name {
   font-size: 16px;
   font-weight: 600;
-  color: #f6f4ef;
+  color: #F0E6D6;
 }
 
 .on-duty-time {
   font-size: 14px;
-  color: #a89b8d;
+  color: #ADA192;
 }
 
 /* Responsive */
@@ -314,25 +314,25 @@ body {
   align-items: center;
   gap: 12px;
   padding: 12px 0;
-  border-bottom: 1px solid #3b3629;
+  border-bottom: 1px solid rgba(240,230,214,0.08);
 }
 
 .task-check {
   width: 22px;
   height: 22px;
   flex-shrink: 0;
-  border: 1px solid #4a4640;
+  border: 1px solid rgba(240,230,214,0.14);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 13px;
-  color: #29261b;
+  color: #1B1815;
 }
 
 .task-check[data-done='true'] {
-  background-color: #6b9f8d;
-  border-color: #6b9f8d;
+  background-color: #94AE82;
+  border-color: #94AE82;
 }
 
 .task-body {
@@ -342,17 +342,17 @@ body {
 .task-title {
   font-size: 16px;
   font-weight: 500;
-  color: #f6f4ef;
+  color: #F0E6D6;
 }
 
 .task-title-done {
-  color: #a89b8d;
+  color: #ADA192;
   text-decoration: line-through;
 }
 
 .task-meta {
   font-size: 14px;
-  color: #a89b8d;
+  color: #ADA192;
 }
 
 /* Header actions */
@@ -364,9 +364,9 @@ body {
 
 .reset-button {
   background: none;
-  border: 1px solid #4a4640;
+  border: 1px solid rgba(240,230,214,0.14);
   border-radius: 8px;
-  color: #a89b8d;
+  color: #ADA192;
   font-family: inherit;
   font-size: 12px;
   padding: 6px 10px;
@@ -374,8 +374,8 @@ body {
 }
 
 .reset-button:hover {
-  color: #f6f4ef;
-  border-color: #6b9f8d;
+  color: #F0E6D6;
+  border-color: #94AE82;
 }
 
 /* Desktop-only navigation furniture. On phones the tab bar is five icons and
@@ -404,8 +404,8 @@ body {
   right: 0;
   display: flex;
   justify-content: space-around;
-  background-color: #221f16;
-  border-top: 1px solid #4a4640;
+  background-color: #25211C;
+  border-top: 1px solid rgba(240,230,214,0.14);
   padding: 8px 0 calc(8px + env(safe-area-inset-bottom, 0px));
   z-index: 100;
 }
@@ -418,13 +418,13 @@ body {
   gap: 3px;
   padding: 6px 0;
   text-decoration: none;
-  color: #a89b8d;
+  color: #ADA192;
   /* Comfortable thumb target. */
   min-height: 44px;
 }
 
 .tab-active {
-  color: #6b9f8d;
+  color: #94AE82;
 }
 
 .tab-icon {
@@ -443,7 +443,7 @@ body {
   align-items: flex-start;
   gap: 12px;
   padding: 14px 0;
-  border-bottom: 1px solid #3b3629;
+  border-bottom: 1px solid rgba(240,230,214,0.08);
 }
 
 .med-main { flex: 1; }
@@ -451,24 +451,24 @@ body {
 .med-name {
   font-size: 16px;
   font-weight: 500;
-  color: #f6f4ef;
+  color: #F0E6D6;
 }
 
 .med-dose {
   font-weight: 400;
-  color: #a89b8d;
+  color: #ADA192;
 }
 
 .med-instructions {
   font-size: 14px;
-  color: #f6f4ef;
+  color: #F0E6D6;
   opacity: 0.8;
   margin-top: 2px;
 }
 
 .med-meta {
   font-size: 13px;
-  color: #a89b8d;
+  color: #ADA192;
   margin-top: 4px;
 }
 
@@ -478,26 +478,26 @@ body {
 
 /* Appointments */
 .appt-card {
-  border-left: 3px solid #6b9f8d;
+  border-left: 3px solid #94AE82;
   margin-bottom: 12px;
 }
 
 .appt-time {
   font-size: 14px;
   font-weight: 600;
-  color: #6b9f8d;
+  color: #94AE82;
 }
 
 .appt-title {
   font-size: 17px;
   font-weight: 600;
-  color: #f6f4ef;
+  color: #F0E6D6;
   margin-top: 4px;
 }
 
 .appt-meta {
   font-size: 14px;
-  color: #a89b8d;
+  color: #ADA192;
   margin-top: 4px;
 }
 
@@ -511,7 +511,7 @@ body {
 
 .appt-prep {
   font-size: 13px;
-  color: #a89b8d;
+  color: #ADA192;
   font-style: italic;
 }
 
@@ -529,9 +529,9 @@ body {
 .filter-chip {
   flex: 0 0 auto;
   background: none;
-  border: 1px solid #4a4640;
+  border: 1px solid rgba(240,230,214,0.14);
   border-radius: 999px;
-  color: #a89b8d;
+  color: #ADA192;
   font-family: inherit;
   font-size: 14px;
   padding: 8px 14px;
@@ -540,15 +540,15 @@ body {
 }
 
 .filter-chip[data-active='true'] {
-  border-color: #6b9f8d;
-  color: #6b9f8d;
-  background-color: rgba(107, 159, 141, 0.12);
+  border-color: #94AE82;
+  color: #94AE82;
+  background-color: rgba(148, 174, 130, 0.12);
 }
 
 .log-card { margin-bottom: 12px; }
 
 .empty-state {
-  color: #a89b8d;
+  color: #ADA192;
   font-size: 15px;
   padding: 12px 0;
   text-align: center;
@@ -560,7 +560,7 @@ body {
   align-items: center;
   gap: 12px;
   padding: 12px 0;
-  border-bottom: 1px solid #3b3629;
+  border-bottom: 1px solid rgba(240,230,214,0.08);
 }
 
 .supply-emoji { font-size: 20px; }
@@ -569,25 +569,25 @@ body {
 .supply-name {
   font-size: 16px;
   font-weight: 500;
-  color: #f6f4ef;
+  color: #F0E6D6;
 }
 
 .supply-name-done {
-  color: #a89b8d;
+  color: #ADA192;
   text-decoration: line-through;
 }
 
 .supply-meta {
   font-size: 13px;
-  color: #a89b8d;
+  color: #ADA192;
   margin-top: 2px;
 }
 
 .supply-btn {
   background: none;
-  border: 1px solid #4a4640;
+  border: 1px solid rgba(240,230,214,0.14);
   border-radius: 8px;
-  color: #f6f4ef;
+  color: #F0E6D6;
   font-family: inherit;
   font-size: 14px;
   padding: 10px 14px;
@@ -596,14 +596,14 @@ body {
 }
 
 .supply-done {
-  color: #6b9f8d;
+  color: #94AE82;
   font-size: 18px;
   padding: 0 10px;
 }
 
 .supplies-hint {
   font-size: 13px;
-  color: #a89b8d;
+  color: #ADA192;
   line-height: 1.6;
   padding: 4px 4px 0;
 }
@@ -618,7 +618,7 @@ body {
 @media (min-width: 900px) {
   body {
     min-height: 100vh;
-    background-color: #29261b;
+    background-color: #1B1815;
   }
 
   .app {
@@ -672,7 +672,7 @@ body {
   }
 
   .nav-mark {
-    color: #6b9f8d;
+    color: #94AE82;
     font-size: 22px;
     line-height: 1;
   }
@@ -680,7 +680,7 @@ body {
   .nav-wordmark {
     font-size: 19px;
     font-weight: 700;
-    color: #f6f4ef;
+    color: #F0E6D6;
     letter-spacing: -0.01em;
   }
 
@@ -688,8 +688,8 @@ body {
     gap: 10px;
     padding: 12px;
     margin-bottom: 24px;
-    background-color: #2b2820;
-    border: 1px solid #3b3629;
+    background-color: #25211C;
+    border: 1px solid rgba(240,230,214,0.08);
     border-radius: 12px;
   }
 
@@ -698,8 +698,8 @@ body {
     height: 34px;
     flex-shrink: 0;
     border-radius: 50%;
-    background-color: #6b9f8d;
-    color: #29261b;
+    background-color: #94AE82;
+    color: #1B1815;
     font-size: 13px;
     font-weight: 700;
     display: flex;
@@ -712,12 +712,12 @@ body {
   .nav-profile-name {
     font-size: 14px;
     font-weight: 600;
-    color: #f6f4ef;
+    color: #F0E6D6;
   }
 
   .nav-profile-role {
     font-size: 12px;
-    color: #a89b8d;
+    color: #ADA192;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -734,7 +734,7 @@ body {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #8a7f72;
+    color: #766C5E;
     padding: 0 12px 8px;
   }
 
@@ -751,8 +751,8 @@ body {
     gap: 4px;
     padding: 32px 16px;
     border-top: none;
-    border-right: 1px solid #4a4640;
-    background-color: #221f16;
+    border-right: 1px solid rgba(240,230,214,0.14);
+    background-color: #25211C;
   }
 
   .tab {
@@ -769,8 +769,8 @@ body {
   }
 
   .tab-active {
-    background-color: rgba(107, 159, 141, 0.14);
-    color: #f6f4ef;
+    background-color: rgba(148, 174, 130, 0.14);
+    color: #F0E6D6;
     font-weight: 600;
   }
 
@@ -794,7 +794,7 @@ body {
     justify-content: center;
     padding: 24px;
     background:
-      radial-gradient(1200px 600px at 50% -10%, #3d3a30 0%, #201d15 60%, #17150f 100%);
+      radial-gradient(1200px 600px at 50% -10%, #2D2823 0%, #1B1815 60%, #161310 100%);
   }
 
   :root[data-view='phone'] #root {
@@ -806,12 +806,12 @@ body {
     width: 402px;
     height: 874px;
     flex: 0 0 auto;
-    border: 12px solid #100e09;
+    border: 12px solid #0E0C0A;
     border-radius: 52px;
     overflow-y: auto;
     overflow-x: hidden;
     position: relative;
-    box-shadow: 0 40px 90px rgba(0, 0, 0, 0.6), 0 0 0 2px #2a2720;
+    box-shadow: 0 40px 90px rgba(0, 0, 0, 0.6), 0 0 0 2px #2D2823;
     padding: 20px 0 0;
     scrollbar-width: none;
     /* Layout stays a true 402x874 so it behaves exactly like a phone; only the
@@ -859,7 +859,7 @@ body {
     margin-top: 24px;
     padding: 8px 0;
     border-radius: 0;
-    border-top: 1px solid #4a4640;
+    border-top: 1px solid rgba(240,230,214,0.14);
     border-right: none;
   }
 
@@ -889,10 +889,10 @@ body {
   top: 16px;
   right: 16px;
   z-index: 200;
-  background-color: #3d3a30;
-  border: 1px solid #4a4640;
+  background-color: #2D2823;
+  border: 1px solid rgba(240,230,214,0.14);
   border-radius: 999px;
-  color: #a89b8d;
+  color: #ADA192;
   font-family: inherit;
   font-size: 13px;
   padding: 8px 14px;
@@ -900,15 +900,15 @@ body {
 }
 
 .view-toggle:hover {
-  color: #f6f4ef;
-  border-color: #6b9f8d;
+  color: #F0E6D6;
+  border-color: #94AE82;
 }
 
 /* Card header affordances */
 .card-link {
   font-size: 13px;
   font-weight: 500;
-  color: #6b9f8d;
+  color: #94AE82;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -920,14 +920,14 @@ body {
 .card-count {
   font-size: 13px;
   font-weight: 500;
-  color: #a89b8d;
+  color: #ADA192;
   margin-left: 6px;
 }
 
 /* Page header */
 .greeting {
   font-size: 13px;
-  color: #a89b8d;
+  color: #ADA192;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   font-weight: 600;
@@ -937,7 +937,7 @@ body {
 .name {
   font-size: 26px;
   font-weight: 700;
-  color: #f6f4ef;
+  color: #F0E6D6;
   letter-spacing: -0.015em;
 }
 
@@ -994,7 +994,7 @@ body {
     justify-content: center;
     padding: 0;
     border-radius: 50%;
-    border: 1px solid #4a4640;
+    border: 1px solid rgba(240,230,214,0.14);
   }
 
   .header {
@@ -1083,8 +1083,8 @@ body {
   gap: 8px;
   margin-bottom: 20px;
   padding: 10px 12px;
-  background-color: #2b2820;
-  border: 1px dashed #4a4640;
+  background-color: #25211C;
+  border: 1px dashed rgba(240,230,214,0.14);
   border-radius: 10px;
 }
 
@@ -1093,7 +1093,7 @@ body {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #8a7f72;
+  color: #766C5E;
   white-space: nowrap;
 }
 
@@ -1102,7 +1102,7 @@ body {
   min-width: 0;
   background-color: transparent;
   border: none;
-  color: #f6f4ef;
+  color: #F0E6D6;
   font-family: inherit;
   font-size: 14px;
   font-weight: 500;
@@ -1112,8 +1112,8 @@ body {
 }
 
 .role-switcher-select option {
-  background-color: #322e23;
-  color: #f6f4ef;
+  background-color: #25211C;
+  color: #F0E6D6;
 }
 
 /* Admin-only reassurance that they are seeing everything. */
@@ -1123,14 +1123,14 @@ body {
   gap: 10px;
   padding: 12px 14px;
   margin-bottom: 16px;
-  border: 1px dashed #6b5073;
+  border: 1px dashed #B89BC9;
   border-radius: 12px;
   font-size: 13px;
-  color: #a89b8d;
+  color: #ADA192;
   line-height: 1.5;
 }
 
-.primary-view-note strong { color: #8b6b9e; }
+.primary-view-note strong { color: #B89BC9; }
 
 .primary-view-icon { font-size: 15px; }
 
@@ -1139,8 +1139,8 @@ body {
   margin-bottom: 12px;
   padding: 5px 10px;
   border-radius: 999px;
-  background-color: rgba(139, 107, 158, 0.22);
-  color: #a885b3;
+  background-color: rgba(184, 155, 201, 0.22);
+  color: #B89BC9;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -1158,7 +1158,7 @@ body {
 /* Care circle / team */
 .team-note {
   font-size: 14px;
-  color: #a89b8d;
+  color: #ADA192;
   line-height: 1.6;
   margin: 0;
 }
@@ -1168,7 +1168,7 @@ body {
   align-items: flex-start;
   gap: 12px;
   padding: 14px 0;
-  border-bottom: 1px solid #3b3629;
+  border-bottom: 1px solid rgba(240,230,214,0.08);
 }
 
 .card > .team-row:last-child {
@@ -1181,8 +1181,8 @@ body {
   height: 38px;
   flex-shrink: 0;
   border-radius: 50%;
-  background-color: #423d31;
-  color: #f6f4ef;
+  background-color: rgba(240,230,214,0.08);
+  color: #F0E6D6;
   font-size: 13px;
   font-weight: 700;
   display: flex;
@@ -1195,7 +1195,7 @@ body {
 .team-name {
   font-size: 16px;
   font-weight: 600;
-  color: #f6f4ef;
+  color: #F0E6D6;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1206,22 +1206,22 @@ body {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #6b9f8d;
-  border: 1px solid #6b9f8d;
+  color: #94AE82;
+  border: 1px solid #94AE82;
   border-radius: 999px;
   padding: 2px 6px;
 }
 
 .team-role {
   font-size: 13px;
-  color: #6b9f8d;
+  color: #94AE82;
   font-weight: 500;
   margin-top: 3px;
 }
 
 .team-blurb {
   font-size: 13px;
-  color: #a89b8d;
+  color: #ADA192;
   line-height: 1.5;
   margin-top: 4px;
 }
@@ -1232,8 +1232,8 @@ body {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #8b6b9e;
-  border: 1px solid #8b6b9e;
+  color: #B89BC9;
+  border: 1px solid #B89BC9;
   border-radius: 999px;
   padding: 5px 9px;
 }
@@ -1241,9 +1241,9 @@ body {
 .team-btn {
   flex-shrink: 0;
   background: none;
-  border: 1px solid #4a4640;
+  border: 1px solid rgba(240,230,214,0.14);
   border-radius: 8px;
-  color: #f6f4ef;
+  color: #F0E6D6;
   font-family: inherit;
   font-size: 13px;
   font-weight: 500;
@@ -1254,11 +1254,23 @@ body {
 }
 
 .team-btn[data-on='true'] {
-  border-color: #8b6b9e;
-  color: #8b6b9e;
+  border-color: #B89BC9;
+  color: #B89BC9;
 }
 
 .team-btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+
+/* Display face — headlines and big numbers, per the prototype's type ramp. */
+.name,
+.summary-number,
+.nav-wordmark,
+.dose-time,
+.appt-time,
+.med-stock-number {
+  font-family: 'Instrument Sans', 'Inter Tight', -apple-system, system-ui, sans-serif;
+  letter-spacing: -0.02em;
 }

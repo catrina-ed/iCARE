@@ -151,3 +151,16 @@ export interface CareTask {
   notes?: string;
   recurring?: boolean;
 }
+
+export type ExerciseIntensity = 'light' | 'moderate' | 'vigorous';
+
+export interface ExerciseSession {
+  id: string;
+  type: string;
+  minutes: number;
+  intensity: ExerciseIntensity;
+  note?: string;
+  /** userId — Gail logs her own sessions as often as a caretaker does. */
+  by: string;
+  date: string; // YYYY-MM-DD
+}

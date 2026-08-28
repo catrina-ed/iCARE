@@ -14,6 +14,8 @@ import { Meds } from './screens/Meds'
 import { Calendar } from './screens/Calendar'
 import { CareLog } from './screens/CareLog'
 import { Supplies } from './screens/Supplies'
+import { Movement } from './screens/Movement'
+import { More } from './screens/More'
 import { Team } from './screens/Team'
 import { useSession } from './hooks/useSession'
 import { isSupabaseConfigured } from './lib/supabase'
@@ -23,9 +25,8 @@ function Shell() {
   const { role } = useCare()
   const isRecipient = role === 'recipient'
 
-  // Gail's view is Home and Calendar only. Hiding the tabs is not enough —
-  // a stale hash would otherwise walk straight into a screen she should not
-  // see, so the routes themselves redirect.
+  // Hiding a tab is not enough — a stale hash would otherwise walk straight
+  // into a screen Gail should not see, so the routes redirect too.
   const guard = (el: React.ReactElement) =>
     isRecipient ? <Navigate to="/" replace /> : el
 
@@ -37,10 +38,12 @@ function Shell() {
         <Routes>
           <Route path="/"          element={<Home />} />
           <Route path="/meds"      element={guard(<Meds />)} />
+          <Route path="/move"      element={<Movement />} />
           <Route path="/calendar"  element={<Calendar />} />
           <Route path="/notes"     element={guard(<CareLog />)} />
           <Route path="/supplies"  element={guard(<Supplies />)} />
           <Route path="/team"      element={guard(<Team />)} />
+          <Route path="/more"      element={<More />} />
           <Route path="*"          element={<Home />} />
         </Routes>
       </div>

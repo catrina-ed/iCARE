@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import {
-  TODAYS_DOSES_MORNING, CARE_LOG, CARE_TASKS, SHOPPING_ITEMS, USERS,
+  TODAYS_DOSES_MORNING, CARE_LOG, CARE_TASKS, SHOPPING_ITEMS, EXERCISE_LOG, USERS,
 } from 'shared/data';
 import { ADMIN_LIMIT } from 'shared/types';
 import type {
-  Dose, CareLogEntry, CareTask, ShoppingItem, UserRole,
+  Dose, CareLogEntry, CareTask, ShoppingItem, UserRole, ExerciseSession,
 } from 'shared/types';
 import { usePersistentState, resetPersistedState } from '../hooks/usePersistentState';
 import { CareContext, type CareState } from './careContext';
@@ -36,6 +36,7 @@ export function MockCareProvider({ children }: { children: React.ReactNode }) {
   const [careLog, setCareLog] = usePersistentState<CareLogEntry[]>('careLog', CARE_LOG);
   const [tasks, setTasks] = usePersistentState<CareTask[]>('tasks', CARE_TASKS);
   const [shopping, setShopping] = usePersistentState<ShoppingItem[]>('shopping', SHOPPING_ITEMS);
+  const [exercise, setExercise] = usePersistentState<ExerciseSession[]>('exercise', EXERCISE_LOG);
 
   // Mirrors the database policy: a confidential note is visible only to its
   // author and to admins. Enforced again here so the UI cannot show what the
@@ -51,6 +52,7 @@ export function MockCareProvider({ children }: { children: React.ReactNode }) {
     allCareLog: careLog,
     tasks,
     shopping,
+    exercise,
     currentUser,
     setCurrentUser,
     role,
@@ -141,6 +143,20 @@ export function MockCareProvider({ children }: { children: React.ReactNode }) {
       } : t));
     },
 
+    logExercise: ({ type, minutes, intensity, note }) => {
+      const today = new Date();
+      const pad = (n: number) => String(n).padStart(2, '0');
+      setExercise([{
+        id: `ex-${Date.now()}`,
+        type,
+        minutes,
+        intensity,
+        note: note || undefined,
+        by: currentUser,
+        date: `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(today.getDate())}`,
+      }, ...exercise]);
+    },
+
     claimItem: (itemId) => {
       setShopping(shopping.map(i => i.id === itemId
         ? { ...i, status: 'assigned' as const, assignedTo: currentUser }
@@ -159,8 +175,9 @@ export function MockCareProvider({ children }: { children: React.ReactNode }) {
       setCareLog(CARE_LOG);
       setTasks(CARE_TASKS);
       setShopping(SHOPPING_ITEMS);
+      setExercise(EXERCISE_LOG);
     },
-  }), [doses, careLog, visibleCareLog, tasks, shopping, currentUser, setCurrentUser,
+  }), [doses, careLog, visibleCareLog, tasks, shopping, exercise, setExercise, currentUser, setCurrentUser,
        role, isAdmin, isMasterAdmin, adminIds, adminSlotsLeft, masterAdminId,
        grantedAdminIds, setGrantedAdminIds,
        setDoses, setCareLog, setTasks, setShopping]);

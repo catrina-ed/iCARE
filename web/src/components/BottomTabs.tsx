@@ -7,27 +7,28 @@ import { useCare } from '../state/CareProvider';
  * on desktop. The group labels and profile block are desktop-only and hidden
  * by CSS rather than by a second component, so the two never drift apart.
  */
+// Matches the prototype's five tabs. Calendar, Supplies, and the care circle
+// live inside More rather than competing for a tab.
 const GROUPS = [
   {
     label: 'Care',
     tabs: [
-      { to: '/',         label: 'Home',     icon: '🏠' },
-      { to: '/meds',     label: 'Meds',     icon: '💊' },
-      { to: '/calendar', label: 'Calendar', icon: '📅' },
+      { to: '/',     label: 'Home', icon: '🏠' },
+      { to: '/meds', label: 'Meds', icon: '💊' },
+      { to: '/move', label: 'Move', icon: '🚶' },
     ],
   },
   {
     label: `For ${GAIL.nickname || GAIL.name}`,
     tabs: [
-      { to: '/notes',    label: 'Notes',    icon: '📝' },
-      { to: '/supplies', label: 'Supplies', icon: '🛒' },
-      { to: '/team',     label: 'Circle',   icon: '👥' },
+      { to: '/notes', label: 'Log',  icon: '📝' },
+      { to: '/more',  label: 'More', icon: '⋯' },
     ],
   },
 ];
 
-/** Gail sees her own day, not the coordination machinery around it. */
-const RECIPIENT_TABS = ['/', '/calendar'];
+/** Gail sees her own day and her movement; the coordination lives elsewhere. */
+const RECIPIENT_TABS = ['/', '/move', '/more'];
 
 export function BottomTabs() {
   const { currentUser, role } = useCare();

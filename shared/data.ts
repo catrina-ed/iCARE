@@ -1,6 +1,6 @@
 import type {
   User, CareRecipient, Medication, Dose, Appointment,
-  CareLogEntry, Alert, ShoppingItem, CareTask
+  CareLogEntry, Alert, ShoppingItem, CareTask, ExerciseSession
 } from './types';
 
 // Demo dates are relative to whenever the app is opened, so the sample day is
@@ -430,4 +430,14 @@ export const CARE_TASKS: CareTask[] = [
   { id: 't5', title: 'Pick up refill from pharmacy', category: 'errand', dueTime: '15:00', assignedTo: 'trina', done: false },
   { id: 't6', title: 'Call with Aunt Rose', category: 'social', dueTime: '17:00', assignedTo: 'trina', done: false, recurring: true },
   { id: 't7', title: 'Evening tidy of the kitchen', category: 'household', dueTime: '19:00', assignedTo: 'destiny', done: false, recurring: true },
+];
+
+// Movement this week. Logged by whoever was there — Gail included.
+export const EXERCISE_LOG: ExerciseSession[] = [
+  { id: 'e1', type: 'Walk',             minutes: 15, intensity: 'light',    note: 'Around the block, nice weather', by: 'catina',   date: day(-5) },
+  { id: 'e2', type: 'Chair yoga',       minutes: 20, intensity: 'light',                                            by: 'gail',     date: day(-4) },
+  { id: 'e3', type: 'Physical therapy', minutes: 30, intensity: 'moderate', note: 'Leg exercises at the clinic',    by: 'catina',   date: day(-3) },
+  { id: 'e4', type: 'Walk',             minutes: 12, intensity: 'light',    note: 'To the mailbox and back',        by: 'markyaah', date: day(-2) },
+  { id: 'e5', type: 'Dancing',          minutes: 10, intensity: 'moderate', note: 'Danced to the radio in the kitchen', by: 'gail', date: day(-1) },
+  { id: 'e6', type: 'Stretching',       minutes: 10, intensity: 'light',                                            by: 'gail',     date: day(-1) },
 ];

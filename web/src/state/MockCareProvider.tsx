@@ -87,6 +87,39 @@ export function MockCareProvider({ children }: { children: React.ReactNode }) {
       setDoses([...doses, dose].sort((a, b) => a.time.localeCompare(b.time)));
     },
 
+    logDoses: (ids, opts = {}) => {
+      const previous = doses.filter(d => ids.includes(d.id)).map(d => ({ ...d }));
+      const stamp = opts.at ?? new Date().toTimeString().slice(0, 5);
+      setDoses(doses.map(d => ids.includes(d.id)
+        ? {
+            ...d,
+            status: 'given' as const,
+            confirmedBy: currentUser,
+            confirmedAt: stamp,
+            notes: opts.note || undefined,
+          }
+        : d));
+      return previous;
+    },
+
+    skipDoses: (ids, reason) => {
+      const previous = doses.filter(d => ids.includes(d.id)).map(d => ({ ...d }));
+      setDoses(doses.map(d => ids.includes(d.id)
+        ? {
+            ...d,
+            status: 'skipped' as const,
+            confirmedBy: currentUser,
+            confirmedAt: new Date().toTimeString().slice(0, 5),
+            notes: reason,
+          }
+        : d));
+      return previous;
+    },
+
+    restoreDoses: (previous) => {
+      setDoses(doses.map(d => previous.find(p => p.id === d.id) ?? d));
+    },
+
     addNote: (text, tag, confidential) => {
       setCareLog([{
         id: `log-${Date.now()}`,

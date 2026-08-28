@@ -29,6 +29,20 @@ export interface CareState {
   grantAdmin: (userId: string) => void;
   revokeAdmin: (userId: string) => void;
   logDose: (medicationId: string, time: string, notes: string) => void;
+
+  /**
+   * The one-tap path. Marks every id given, stamped with the current user,
+   * and returns what those doses looked like beforehand so the caller can
+   * offer an undo. Returning the previous state rather than keeping an undo
+   * stack in here leaves this layer stateless about the interaction.
+   */
+  logDoses: (ids: string[], opts?: { at?: string; note?: string }) => Dose[];
+
+  /** Records a dose as deliberately not taken, with the reason. */
+  skipDoses: (ids: string[], reason: string) => Dose[];
+
+  /** Puts doses back exactly as they were. Used by undo. */
+  restoreDoses: (previous: Dose[]) => void;
   addNote: (text: string, tag: CareLogTag, confidential: boolean) => void;
   completeTask: (taskId: string, notes: string) => void;
   claimItem: (itemId: string) => void;

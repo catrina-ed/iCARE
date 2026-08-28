@@ -10,8 +10,20 @@ Last reviewed: 2026-08-27
 
 ## P0 — before any real family member uses this
 
+**This is a running list.** Items get added here as they surface and moved to
+"Cleared" below when they are genuinely done — not when they are started, and
+not when a workaround exists.
+
 Everything here is fine while the data is fictional. All of it becomes a real
 problem the day a real note about Mom's health is entered.
+
+| # | Item | Trigger | Status |
+|---|------|---------|--------|
+| 1 | Split Supabase into dev and prod | Before inviting anyone real | Open |
+| 2 | Make the app use the database | Now — current work | In progress |
+| 3 | Real SMTP for magic links | Before more than 1–2 people sign in | Open |
+| 4 | Invite flow for the care team | Before anyone but Trina signs in | Open |
+| 5 | Decide what the public repo may hold | Before real data of any kind | Open |
 
 ### 1. Split Supabase into separate dev and prod projects
 **Trigger: before inviting anyone real.**
@@ -49,6 +61,10 @@ person signing in lands in an empty app with no route in.
 `catrina-ed/iCARE` is public, which is what makes Pages free. Real care data
 must live only in the database, never in the repo — no seed files with real
 notes, no screenshots with real health details in the README.
+
+### Cleared
+
+Nothing yet.
 
 ---
 

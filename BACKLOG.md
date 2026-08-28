@@ -21,7 +21,7 @@ problem the day a real note about Mom's health is entered.
 |---|------|---------|--------|
 | 1 | Split Supabase into dev and prod | Before inviting anyone real | Open |
 | 2 | Make the app use the database | Now — current work | In progress |
-| 3 | Real SMTP for magic links | Before more than 1–2 people sign in | Open |
+| 3 | Real SMTP for magic links | **Hit 2026-08-27** — blocking sign-in testing | **Blocking** |
 | 4 | Invite flow for the care team | Before anyone but Trina signs in | Open |
 | 5 | Decide what the public repo may hold | Before real data of any kind | Open |
 
@@ -43,10 +43,15 @@ every phone holds its own private copy. Until this lands, the app cannot
 coordinate anything between two people, which is the entire point of it.
 
 ### 3. Real email delivery for magic links
-**Trigger: before more than one or two people sign in.**
-Supabase's built-in sender is rate-limited to a handful of messages per hour on
-the free tier. Five family members signing in on the same evening will hit that
-and simply not receive their links, which looks like the app is broken.
+**Trigger: hit on 2026-08-27, during the first sign-in test.**
+Supabase's built-in sender is rate-limited to a couple of messages per hour on
+the free tier. Two test sign-ins exhausted it and further attempts return
+"email rate limit exceeded" — which is exactly how it would fail for five
+family members signing in on the same evening, except they would read it as
+the app being broken.
+
+Note the rate limit for the built-in sender cannot be raised; configuring
+custom SMTP is what unlocks the Auth rate-limit settings.
 
 Fix: connect an SMTP provider (Resend and Postmark both have free tiers).
 

@@ -331,3 +331,26 @@ body {
   font-size: 14px;
   color: #a89b8d;
 }
+
+/* Header actions */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.reset-button {
+  background: none;
+  border: 1px solid #4a4640;
+  border-radius: 8px;
+  color: #a89b8d;
+  font-family: inherit;
+  font-size: 12px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.reset-button:hover {
+  color: #f6f4ef;
+  border-color: #6b9f8d;
+}

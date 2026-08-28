@@ -9,6 +9,7 @@ import { LogDoseModal } from './components/LogDoseModal'
 import { AddNoteModal } from './components/AddNoteModal'
 import { TaskDoneModal } from './components/TaskDoneModal'
 import type { Dose, CareLogEntry, CareLogTag, CareTask } from 'shared/types'
+import { usePersistentState, resetPersistedState } from './hooks/usePersistentState'
 
 function App() {
   const [showAlerts, setShowAlerts] = useState(false)
@@ -16,15 +17,14 @@ function App() {
   const [isLogDoseOpen, setIsLogDoseOpen] = useState(false)
   const [isAddNoteOpen, setIsAddNoteOpen] = useState(false)
   const [isTaskDoneOpen, setIsTaskDoneOpen] = useState(false)
-  const [doses, setDoses] = useState<Dose[]>(TODAYS_DOSES_MORNING)
-  const [careLog, setCareLog] = useState<CareLogEntry[]>(CARE_LOG)
-  const [tasks, setTasks] = useState<CareTask[]>(CARE_TASKS)
+  const [doses, setDoses] = usePersistentState<Dose[]>('doses', TODAYS_DOSES_MORNING)
+  const [careLog, setCareLog] = usePersistentState<CareLogEntry[]>('careLog', CARE_LOG)
+  const [tasks, setTasks] = usePersistentState<CareTask[]>('tasks', CARE_TASKS)
 
   const user = USERS[currentUser]
   const alerts = showAlerts ? ALERTS_MORNING_ALERT : ALERTS_MORNING_CALM
 
-  const handleLogDose = (medicationId: string, notes: string) => {
-    const time = new Date().toTimeString().slice(0, 5)
+  const handleLogDose = (medicationId: string, time: string, notes: string) => {
     const newDose: Dose = {
       id: `dose-${Date.now()}`,
       medicationId,
@@ -34,7 +34,7 @@ function App() {
       confirmedAt: new Date().toISOString(),
       notes: notes || undefined,
     }
-    setDoses([...doses, newDose])
+    setDoses([...doses, newDose].sort((a, b) => a.time.localeCompare(b.time)))
   }
 
   const handleAddNote = (text: string, tag: CareLogTag, confidential: boolean) => {
@@ -47,6 +47,14 @@ function App() {
       confidential,
     }
     setCareLog([newEntry, ...careLog])
+  }
+
+  const handleResetDemoData = () => {
+    if (!confirm('Clear everything logged in this browser and start over from the sample day?')) return
+    resetPersistedState()
+    setDoses(TODAYS_DOSES_MORNING)
+    setCareLog(CARE_LOG)
+    setTasks(CARE_TASKS)
   }
 
   const handleTaskDone = (taskId: string, notes: string) => {
@@ -76,9 +84,18 @@ function App() {
             <div className="greeting">Good morning,</div>
             <div className="name">{user.name}</div>
           </div>
-          <button className="alert-toggle" onClick={() => setShowAlerts(!showAlerts)}>
-            🚨
-          </button>
+          <div className="header-actions">
+            <button
+              className="reset-button"
+              title="Clear saved data and start over from the sample day"
+              onClick={handleResetDemoData}
+            >
+              Reset demo data
+            </button>
+            <button className="alert-toggle" onClick={() => setShowAlerts(!showAlerts)}>
+              🚨
+            </button>
+          </div>
         </div>
 
         {/* Alerts */}

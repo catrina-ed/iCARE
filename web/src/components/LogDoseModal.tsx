@@ -5,11 +5,12 @@ import { COLORS } from 'shared/theme';
 interface LogDoseModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (medicationId: string, notes: string) => void;
+  onSubmit: (medicationId: string, time: string, notes: string) => void;
 }
 
 export function LogDoseModal({ isOpen, onClose, onSubmit }: LogDoseModalProps) {
   const [selectedMedId, setSelectedMedId] = useState<string>('');
+  const [time, setTime] = useState(() => new Date().toTimeString().slice(0, 5));
   const [notes, setNotes] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
@@ -24,9 +25,10 @@ export function LogDoseModal({ isOpen, onClose, onSubmit }: LogDoseModalProps) {
 
     setSubmitting(true);
     try {
-      onSubmit(selectedMedId, notes);
+      onSubmit(selectedMedId, time, notes);
       // Reset form
       setSelectedMedId('');
+      setTime(new Date().toTimeString().slice(0, 5));
       setNotes('');
       onClose();
     } finally {
@@ -66,9 +68,11 @@ export function LogDoseModal({ isOpen, onClose, onSubmit }: LogDoseModalProps) {
             <label style={styles.label}>Time</label>
             <input
               type="time"
-              defaultValue={new Date().toTimeString().slice(0, 5)}
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
               style={styles.input}
               disabled={submitting}
+              required
             />
           </div>
 

@@ -10,7 +10,7 @@ iCARE/
 ├── web/              # React + Vite (Web browser)
 ├── shared/           # Shared types, data, theme
 │   ├── types.ts      # TypeScript interfaces
-│   ├── data.ts       # Mock data (Gail Hayes + family)
+│   ├── data.ts       # Mock data (Gail + family)
 │   ├── theme.ts      # Design tokens (colors, typography, spacing)
 │   └── index.ts
 └── README.md         # This file
@@ -61,14 +61,17 @@ See `shared/theme.ts` for all design tokens.
 
 ## Mock Data
 
-Care recipient: **Gail Hayes**, 78 (Eleanor's mother)
+Care recipient: **Gail**, 78
 
 Family & care team:
-- **Trina** (admin) — Primary caretaker
-- **Markyaah** (co-caretaker) — PA
-- **Destiny** (co-caretaker) — PA
-- **Catina** (professional) — Daytime CNA
-- **Darren** (professional) — Backup CNA
+- **Trina** (master-admin) — Primary caretaker, and the only person who can grant admin
+- **Markyaah** (pa) — Personal Assistant
+- **Destiny** (pa) — Personal Assistant
+- **Catina** (family) — Family
+- **Darren** (family) — Family
+
+First names only: the people in this circle are real, so surnames are not
+published here or in `shared/data.ts`.
 
 See `shared/data.ts` for full details.
 

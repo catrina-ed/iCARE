@@ -127,7 +127,7 @@ session. Also means the confidential-notes rule cannot be seen working in the
 UI, even though the database enforces it correctly.
 
 ### 7. Seed the household with real medications and tasks
-The mock data describes a fictional Gail Hayes. Once the data layer is live,
+The mock data describes a fictional Gail. Once the data layer is live,
 the real household needs its actual medications, schedules, and recurring
 tasks entered — probably through the app rather than SQL.
 

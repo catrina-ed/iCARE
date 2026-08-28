@@ -14,8 +14,10 @@ export const ADMIN_LIMIT = 2;
 
 export interface User {
   id: string;
+  /** What we display. First name only — see the note on USERS in data.ts. */
   name: string;
-  fullName: string;
+  /** Optional, and deliberately unset in the demo data. */
+  fullName?: string;
   role: UserRole;
   relationship: string;
   initials: string;

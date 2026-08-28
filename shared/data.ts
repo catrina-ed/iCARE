@@ -25,7 +25,7 @@ const at = (offset: number, hhmm: string): string => `${day(offset)}T${hhmm}:00`
 // Care recipient
 export const GAIL: CareRecipient = {
   id: 'gail',
-  name: 'Gail Hayes',
+  name: 'Gail',
   nickname: 'Gail',
   age: 78,
   pronouns: 'she/her',
@@ -38,53 +38,51 @@ export const GAIL: CareRecipient = {
   insurance: 'Medicare Advantage · #MA-001-555-7777',
 };
 
-// Family & care team
+// Family & care team.
+//
+// First names only. The people in this circle are real; surnames are not
+// published, and initials are taken from the first name rather than from a
+// surname so they carry nothing extra.
 export const USERS: Record<string, User> = {
   trina: {
     id: 'trina',
-    name: 'Trina P.',
-    fullName: 'Trina Patton',
+    name: 'Trina',
     role: 'master-admin',
     relationship: 'Daughter',
-    initials: 'TP',
+    initials: 'TR',
     email: 'trina@family.local',
   },
   markyaah: {
     id: 'markyaah',
-    name: 'Markyaah B.',
-    fullName: 'Markyaah Bell',
+    name: 'Markyaah',
     role: 'pa',
     relationship: 'PA / Family',
-    initials: 'MB',
+    initials: 'MA',
   },
   destiny: {
     id: 'destiny',
-    name: 'Destiny H.',
-    fullName: 'Destiny Hayes-Wright',
+    name: 'Destiny',
     role: 'pa',
     relationship: 'PA / Family',
-    initials: 'DH',
+    initials: 'DE',
   },
   catina: {
     id: 'catina',
     name: 'Catina',
-    fullName: 'Catina, CNA',
     role: 'family',
     relationship: 'Family',
     initials: 'CA',
   },
   gail: {
     id: 'gail',
-    name: 'Gail H.',
-    fullName: 'Gail Hayes',
+    name: 'Gail',
     role: 'recipient',
     relationship: 'Mom',
-    initials: 'GH',
+    initials: 'GA',
   },
   darren: {
     id: 'darren',
     name: 'Darren',
-    fullName: 'Darren, CNA',
     role: 'family',
     relationship: 'Family',
     initials: 'DA',

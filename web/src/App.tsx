@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import './App.css'
-import { THEME, COLORS } from 'shared/theme'
+import { COLORS } from 'shared/theme'
 import {
-  GAIL, USERS, TODAYS_DOSES_MORNING, CARE_LOG,
+  USERS, TODAYS_DOSES_MORNING, CARE_LOG,
   ALERTS_MORNING_CALM, ALERTS_MORNING_ALERT, MEDICATIONS,
 } from 'shared/data'
 import { LogDoseModal } from './components/LogDoseModal'

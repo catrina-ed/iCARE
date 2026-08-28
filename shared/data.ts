@@ -1,6 +1,6 @@
 import type {
   User, CareRecipient, Medication, Dose, Appointment,
-  CareLogEntry, Alert, ShoppingItem, Bill
+  CareLogEntry, Alert, ShoppingItem
 } from './types';
 
 // Care recipient

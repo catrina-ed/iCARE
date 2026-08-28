@@ -56,15 +56,17 @@ body {
 }
 
 .section-title {
-  font-size: 18px;
+  font-size: 12px;
   font-weight: 600;
-  color: #f6f4ef;
-  margin-bottom: 16px;
+  color: #a89b8d;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
 }
 
 /* Alerts */
 .alert {
-  background-color: #3d3a30;
+  background-color: #322e23;
   border-left: 4px solid #e8614f;
   padding: 16px;
   border-radius: 12px;
@@ -83,25 +85,45 @@ body {
   color: #a89b8d;
 }
 
-/* Card */
+/* Card
+   Was #4a4640 on a #29261b page with a border the same colour as the fill,
+   which read as a flat grey block. A smaller step up from the page plus a
+   lighter border gives separation without shouting. */
 .card {
-  background-color: #4a4640;
-  border: 1px solid #4a4640;
-  border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 32px;
+  background-color: #322e23;
+  border: 1px solid #423d31;
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 16px;
 }
 
 .card-title {
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 600;
   color: #f6f4ef;
-  margin-bottom: 16px;
+  letter-spacing: 0.01em;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* Row items should not draw a line under the last one. */
+.card > .dose-item:last-child,
+.card > .task-item:last-child,
+.card > .log-entry:last-child,
+.card > .med-row:last-child,
+.card > .supply-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
 /* Summary */
 .summary-card {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* The one card that should feel like a headline rather than a list. */
+  background: linear-gradient(135deg, #35473f 0%, #2c3a34 100%);
+  border-color: #476054;
 }
 
 .summary-grid {
@@ -116,7 +138,7 @@ body {
 }
 
 .summary-number {
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 700;
   color: #6b9f8d;
   margin-bottom: 8px;
@@ -135,9 +157,9 @@ body {
 
 .action-button {
   flex: 1;
-  background-color: #4a4640;
-  border: 1px solid #4a4640;
-  border-radius: 16px;
+  background-color: #322e23;
+  border: 1px solid #423d31;
+  border-radius: 14px;
   padding: 16px 12px;
   display: flex;
   flex-direction: column;
@@ -148,7 +170,8 @@ body {
 }
 
 .action-button:hover {
-  background-color: #5a5650;
+  background-color: #3b3628;
+  border-color: #6b9f8d;
 }
 
 .action-icon {
@@ -167,7 +190,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 12px 0;
-  border-bottom: 1px solid #4a4640;
+  border-bottom: 1px solid #3b3629;
 }
 
 .dose-info {
@@ -207,7 +230,7 @@ body {
 /* Log Entry */
 .log-entry {
   padding: 12px 0;
-  border-bottom: 1px solid #4a4640;
+  border-bottom: 1px solid #3b3629;
 }
 
 .log-header {
@@ -291,7 +314,7 @@ body {
   align-items: center;
   gap: 12px;
   padding: 12px 0;
-  border-bottom: 1px solid #4a4640;
+  border-bottom: 1px solid #3b3629;
 }
 
 .task-check {
@@ -355,6 +378,19 @@ body {
   border-color: #6b9f8d;
 }
 
+/* Desktop-only navigation furniture. On phones the tab bar is five icons and
+   nothing else, so the brand, profile, and group labels are hidden and the
+   groups collapse so their tabs sit directly in the flex row. */
+.nav-brand,
+.nav-profile,
+.nav-group-label {
+  display: none;
+}
+
+.nav-group {
+  display: contents;
+}
+
 /* Bottom tab bar */
 .app {
   /* Room for the fixed tab bar plus the iPhone home indicator. */
@@ -407,7 +443,7 @@ body {
   align-items: flex-start;
   gap: 12px;
   padding: 14px 0;
-  border-bottom: 1px solid #4a4640;
+  border-bottom: 1px solid #3b3629;
 }
 
 .med-main { flex: 1; }
@@ -524,7 +560,7 @@ body {
   align-items: center;
   gap: 12px;
   padding: 12px 0;
-  border-bottom: 1px solid #4a4640;
+  border-bottom: 1px solid #3b3629;
 }
 
 .supply-emoji { font-size: 20px; }
@@ -624,6 +660,84 @@ body {
     gap: 64px;
   }
 
+  .nav-brand,
+  .nav-profile {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-brand {
+    gap: 10px;
+    padding: 0 12px 20px;
+  }
+
+  .nav-mark {
+    color: #6b9f8d;
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .nav-wordmark {
+    font-size: 19px;
+    font-weight: 700;
+    color: #f6f4ef;
+    letter-spacing: -0.01em;
+  }
+
+  .nav-profile {
+    gap: 10px;
+    padding: 12px;
+    margin-bottom: 24px;
+    background-color: #2b2820;
+    border: 1px solid #3b3629;
+    border-radius: 12px;
+  }
+
+  .nav-avatar {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: #6b9f8d;
+    color: #29261b;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-profile-text { min-width: 0; }
+
+  .nav-profile-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #f6f4ef;
+  }
+
+  .nav-profile-role {
+    font-size: 12px;
+    color: #a89b8d;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .nav-group {
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .nav-group-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #8a7f72;
+    padding: 0 12px 8px;
+  }
+
   /* Navigation becomes a sidebar. */
   .tab-bar {
     top: 0;
@@ -641,15 +755,6 @@ body {
     background-color: #221f16;
   }
 
-  .tab-bar::before {
-    content: 'iCare';
-    display: block;
-    font-size: 20px;
-    font-weight: 700;
-    color: #6b9f8d;
-    padding: 0 12px 24px;
-  }
-
   .tab {
     flex: 0 0 auto;
     flex-direction: row;
@@ -665,6 +770,8 @@ body {
 
   .tab-active {
     background-color: rgba(107, 159, 141, 0.14);
+    color: #f6f4ef;
+    font-weight: 600;
   }
 
   .tab-icon { font-size: 18px; }
@@ -756,7 +863,11 @@ body {
     border-right: none;
   }
 
-  :root[data-view='phone'] .tab-bar::before { content: none; }
+  :root[data-view='phone'] .nav-brand,
+  :root[data-view='phone'] .nav-profile,
+  :root[data-view='phone'] .nav-group-label { display: none; }
+
+  :root[data-view='phone'] .nav-group { display: contents; }
 
   :root[data-view='phone'] .tab {
     flex: 1;
@@ -791,4 +902,176 @@ body {
 .view-toggle:hover {
   color: #f6f4ef;
   border-color: #6b9f8d;
+}
+
+/* Card header affordances */
+.card-link {
+  font-size: 13px;
+  font-weight: 500;
+  color: #6b9f8d;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.card-link:hover {
+  text-decoration: underline;
+}
+
+.card-count {
+  font-size: 13px;
+  font-weight: 500;
+  color: #a89b8d;
+  margin-left: 6px;
+}
+
+/* Page header */
+.greeting {
+  font-size: 13px;
+  color: #a89b8d;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.name {
+  font-size: 26px;
+  font-weight: 700;
+  color: #f6f4ef;
+  letter-spacing: -0.015em;
+}
+
+@media (min-width: 900px) {
+  .header {
+    padding-top: 0;
+    padding-bottom: 8px;
+    align-items: center;
+  }
+
+  .name {
+    font-size: 30px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Phone refinements.
+
+   Scoped below the desktop breakpoint so none of this is undone by, or
+   interferes with, the desktop layout being redesigned separately.
+   --------------------------------------------------------------------------- */
+@media (max-width: 899px) {
+  .app {
+    padding-top: 8px;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  /* The demo controls were crowding the greeting on a 400px screen. Icon-only
+     keeps them reachable without competing with the person's name. */
+  .header-actions .reset-button {
+    font-size: 0;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .header-actions .reset-button::after {
+    content: '↺';
+    font-size: 17px;
+  }
+
+  .alert-toggle {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid #4a4640;
+  }
+
+  .header {
+    margin-bottom: 24px;
+  }
+
+  /* A little more size on the things people actually read while holding a
+     phone one-handed. */
+  .dose-name,
+  .task-title,
+  .med-name,
+  .supply-name {
+    font-size: 17px;
+  }
+
+  .log-text {
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .dose-details,
+  .task-meta,
+  .supply-meta,
+  .med-meta {
+    font-size: 14px;
+  }
+
+  /* Comfortable thumb targets throughout. */
+  .task-item,
+  .supply-item,
+  .dose-item,
+  .med-row {
+    min-height: 52px;
+  }
+
+  .supply-btn {
+    min-height: 44px;
+    padding: 10px 16px;
+  }
+
+  .action-button {
+    min-height: 76px;
+    padding: 14px 8px;
+  }
+
+  .action-icon { font-size: 22px; }
+  .action-label { font-size: 13px; }
+
+  /* Phones have no hover, so presses need their own feedback. */
+  .action-button:active,
+  .supply-btn:active,
+  .filter-chip:active,
+  .tab:active {
+    opacity: 0.6;
+  }
+
+  .card {
+    padding: 18px 16px;
+    margin-bottom: 14px;
+  }
+
+  .section {
+    margin-bottom: 24px;
+  }
+
+  /* Full-width so the thumb can reach it without stretching. */
+  .filter-row {
+    margin-left: -16px;
+    margin-right: -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .filter-row::-webkit-scrollbar { display: none; }
+  .filter-row { scrollbar-width: none; }
+
+  .tab {
+    min-height: 50px;
+  }
 }

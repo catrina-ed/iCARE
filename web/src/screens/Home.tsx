@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { COLORS } from 'shared/theme';
 import { USERS, ALERTS_MORNING_CALM, ALERTS_MORNING_ALERT, MEDICATIONS } from 'shared/data';
 import { useCare } from '../state/CareProvider';
@@ -114,7 +115,10 @@ export function Home() {
       </div>
 
       <div className="card">
-        <h3 className="card-title">Today's Doses</h3>
+        <h3 className="card-title">
+          Today's Doses
+          <Link className="card-link" to="/meds">View all</Link>
+        </h3>
         {doses.slice(0, 5).map(dose => {
           const med = MEDICATIONS.find(m => m.id === dose.medicationId);
           const color = STATUS_COLORS[dose.status] ?? COLORS.textMuted;
@@ -137,7 +141,7 @@ export function Home() {
 
       <div className="card">
         <h3 className="card-title">
-          Today's Tasks ({tasks.filter(t => t.done).length}/{tasks.length})
+          <span>Today's Tasks <span className="card-count">{tasks.filter(t => t.done).length}/{tasks.length}</span></span>
         </h3>
         {tasks.map(task => (
           <div key={task.id} className="task-item">
@@ -158,7 +162,10 @@ export function Home() {
       </div>
 
       <div className="card">
-        <h3 className="card-title">Recent Notes</h3>
+        <h3 className="card-title">
+          Recent Notes
+          <Link className="card-link" to="/notes">View all</Link>
+        </h3>
         {careLog.slice(0, 3).map(entry => (
           <div key={entry.id} className="log-entry">
             <div className="log-header">

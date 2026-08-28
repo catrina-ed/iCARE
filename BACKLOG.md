@@ -137,7 +137,16 @@ by the web-first decision; revisit once the web MVP is validated.
 Appointments, bills, and handoffs have types in `shared/types.ts` but no
 tables, no data, and no UI.
 
-### 14. A real desktop layout
+### 14. Desktop layout — Catrina is designing this
+**Catrina is doing a design pass on the desktop web view (raised 2026-08-27).**
+Do not spend more effort styling desktop until that lands; the current sidebar
+and grid are a functional placeholder, not a direction. Reference she gave:
+Neela's caregiver app — light theme, grouped sidebar with a profile block,
+two-column card grid with "View all" affordances, prominent hero card.
+
+Mobile is the focus in the meantime.
+
+### 14b. Original note: a real desktop layout
 The web app is a phone column centred on a laptop screen. That is honest and
 fine, but it wastes a large screen — a caretaker doing paperwork at a computer
 could see the calendar, med schedule, and notes side by side rather than

@@ -1,0 +1,114 @@
+# iCare backlog
+
+Ordered by when it has to be handled, not by size. The trigger column matters
+more than the ordering: some of these are harmless today and become urgent the
+moment a specific thing changes.
+
+Last reviewed: 2026-08-27
+
+---
+
+## P0 — before any real family member uses this
+
+Everything here is fine while the data is fictional. All of it becomes a real
+problem the day a real note about Mom's health is entered.
+
+### 1. Split Supabase into separate dev and prod projects
+**Trigger: before inviting anyone real.**
+There is currently one project (`gmhzpbvgttxfqhsbhhkm`) serving as both the
+development database and the family's live database. Testing a schema change
+locally means running experiments against real health records, and a mistaken
+`delete` or migration is unrecoverable.
+
+Fix: create `icare-dev` and `icare-prod`. Localhost and `.env.local` point at
+dev; the deployed site points at prod. Migrations get applied to dev first,
+then prod once they work.
+
+### 2. Make the app actually use the database
+**Trigger: now — this is the current work.**
+Auth is wired up, but the dashboard still reads and writes `localStorage`, so
+every phone holds its own private copy. Until this lands, the app cannot
+coordinate anything between two people, which is the entire point of it.
+
+### 3. Real email delivery for magic links
+**Trigger: before more than one or two people sign in.**
+Supabase's built-in sender is rate-limited to a handful of messages per hour on
+the free tier. Five family members signing in on the same evening will hit that
+and simply not receive their links, which looks like the app is broken.
+
+Fix: connect an SMTP provider (Resend and Postmark both have free tiers).
+
+### 4. Invite flow for the care team
+**Trigger: before anyone but Trina signs in.**
+`create_household()` makes the first person an admin, but there is no way for
+Markyaah, Destiny, Catina, or Darren to join a household. Right now a second
+person signing in lands in an empty app with no route in.
+
+### 5. Decide what the public repo may contain
+**Trigger: before real data of any kind.**
+`catrina-ed/iCARE` is public, which is what makes Pages free. Real care data
+must live only in the database, never in the repo — no seed files with real
+notes, no screenshots with real health details in the README.
+
+---
+
+## P1 — needed for the MVP to be worth showing
+
+### 6. Replace the hardcoded current user
+`currentUser` is pinned to `'trina'` in `web/src/App.tsx`, so every action is
+attributed to Trina regardless of who is signed in. Should come from the
+session. Also means the confidential-notes rule cannot be seen working in the
+UI, even though the database enforces it correctly.
+
+### 7. Seed the household with real medications and tasks
+The mock data describes a fictional Gail Hayes. Once the data layer is live,
+the real household needs its actual medications, schedules, and recurring
+tasks entered — probably through the app rather than SQL.
+
+### 8. Router, then the Meds and Calendar screens
+`App.tsx` is the entire web app; a second screen requires routing first. Mobile
+already has Meds, Calendar, and Care Log screens that web lacks. Note that
+GitHub Pages needs a `404.html` fallback for client-side routing to survive a
+refresh on a sub-path.
+
+### 9. Supplies screen
+`SHOPPING_ITEMS` exists in `shared/data.ts` with no UI on either platform.
+
+---
+
+## P2 — after the MVP is in the family's hands
+
+### 10. Accessibility pass
+Muted 14px text and small tap targets throughout. The people using this are on
+phones, and at least one is 65. Larger type, higher contrast on secondary text,
+bigger touch targets.
+
+### 11. Missed-dose notifications
+The alerting model is the reason to build this app at all, and it is currently
+just UI state. Web push on iPhone requires the app be added to the home screen
+first (iOS 16.4+). This is the constraint most likely to eventually force a
+native build.
+
+### 12. Bring the mobile app up to parity
+`app/` has Home, Meds, Calendar, and Care Log, but only Care Log is
+interactive. It has none of the modals, tasks, persistence, or auth. Deferred
+by the web-first decision; revisit once the web MVP is validated.
+
+### 13. Remaining entities
+Appointments, bills, and handoffs have types in `shared/types.ts` but no
+tables, no data, and no UI.
+
+### 14. Offline behaviour
+Caretakers will use this in places with bad signal. Currently a failed request
+just loses the action.
+
+---
+
+## Housekeeping
+
+- `iCare-MVP-source.html` — a tracked 1.7 MB file at the repo root, unused.
+- `app/src/app/index.tsx` and `app/src/app/explore.tsx` — unused Expo template
+  leftovers; `_layout.tsx` renders `ICareBottomTabs` directly.
+- `web/vite.config.ts` uses `__dirname`, which Vite warns about on every build.
+- Business logic lives inline in `App.tsx`. Moving it into `shared/` keeps the
+  eventual mobile port mechanical and gives the backend one place to plug into.

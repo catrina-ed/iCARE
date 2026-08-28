@@ -124,3 +124,18 @@ export interface DailyHandoff {
   items: string[]; // what was flagged
   notes?: string;
 }
+
+export type CareTaskCategory = 'personal-care' | 'household' | 'medical' | 'errand' | 'social';
+
+export interface CareTask {
+  id: string;
+  title: string;
+  category: CareTaskCategory;
+  dueTime?: string; // HH:MM
+  assignedTo?: string; // userId
+  done: boolean;
+  completedBy?: string; // userId
+  completedAt?: string; // ISO
+  notes?: string;
+  recurring?: boolean;
+}

@@ -284,3 +284,50 @@ body {
     font-size: 24px;
   }
 }
+
+/* Task Item */
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #4a4640;
+}
+
+.task-check {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  border: 1px solid #4a4640;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: #29261b;
+}
+
+.task-check[data-done='true'] {
+  background-color: #6b9f8d;
+  border-color: #6b9f8d;
+}
+
+.task-body {
+  flex: 1;
+}
+
+.task-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #f6f4ef;
+}
+
+.task-title-done {
+  color: #a89b8d;
+  text-decoration: line-through;
+}
+
+.task-meta {
+  font-size: 14px;
+  color: #a89b8d;
+}

@@ -3,19 +3,22 @@ import './App.css'
 import { COLORS } from 'shared/theme'
 import {
   USERS, TODAYS_DOSES_MORNING, CARE_LOG,
-  ALERTS_MORNING_CALM, ALERTS_MORNING_ALERT, MEDICATIONS,
+  ALERTS_MORNING_CALM, ALERTS_MORNING_ALERT, MEDICATIONS, CARE_TASKS,
 } from 'shared/data'
 import { LogDoseModal } from './components/LogDoseModal'
 import { AddNoteModal } from './components/AddNoteModal'
-import type { Dose, CareLogEntry, CareLogTag } from 'shared/types'
+import { TaskDoneModal } from './components/TaskDoneModal'
+import type { Dose, CareLogEntry, CareLogTag, CareTask } from 'shared/types'
 
 function App() {
   const [showAlerts, setShowAlerts] = useState(false)
   const [currentUser] = useState('trina')
   const [isLogDoseOpen, setIsLogDoseOpen] = useState(false)
   const [isAddNoteOpen, setIsAddNoteOpen] = useState(false)
+  const [isTaskDoneOpen, setIsTaskDoneOpen] = useState(false)
   const [doses, setDoses] = useState<Dose[]>(TODAYS_DOSES_MORNING)
   const [careLog, setCareLog] = useState<CareLogEntry[]>(CARE_LOG)
+  const [tasks, setTasks] = useState<CareTask[]>(CARE_TASKS)
 
   const user = USERS[currentUser]
   const alerts = showAlerts ? ALERTS_MORNING_ALERT : ALERTS_MORNING_CALM
@@ -44,6 +47,20 @@ function App() {
       confidential,
     }
     setCareLog([newEntry, ...careLog])
+  }
+
+  const handleTaskDone = (taskId: string, notes: string) => {
+    setTasks(tasks.map(task =>
+      task.id === taskId
+        ? {
+            ...task,
+            done: true,
+            completedBy: currentUser,
+            completedAt: new Date().toISOString(),
+            notes: notes || task.notes,
+          }
+        : task
+    ))
   }
 
   const givenCount = doses.filter(d => d.status === 'given').length
@@ -114,7 +131,7 @@ function App() {
               <div className="action-icon">📝</div>
               <div className="action-label">Add Note</div>
             </button>
-            <button className="action-button">
+            <button className="action-button" onClick={() => setIsTaskDoneOpen(true)}>
               <div className="action-icon">✓</div>
               <div className="action-label">Task Done</div>
             </button>
@@ -150,6 +167,33 @@ function App() {
               </div>
             )
           })}
+        </div>
+
+        {/* Today's Tasks */}
+        <div className="card">
+          <h3 className="card-title">
+            Today's Tasks ({tasks.filter(t => t.done).length}/{tasks.length})
+          </h3>
+          {tasks.map(task => (
+            <div key={task.id} className="task-item">
+              <div className="task-check" data-done={task.done}>
+                {task.done ? '✓' : ''}
+              </div>
+              <div className="task-body">
+                <div className={task.done ? 'task-title task-title-done' : 'task-title'}>
+                  {task.title}
+                </div>
+                <div className="task-meta">
+                  {task.dueTime}
+                  {task.done && task.completedBy
+                    ? ` · done by ${USERS[task.completedBy]?.name ?? task.completedBy}`
+                    : task.assignedTo
+                      ? ` · ${USERS[task.assignedTo]?.name ?? task.assignedTo}`
+                      : ''}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
 
         {/* Recent Care Log */}
@@ -193,6 +237,14 @@ function App() {
           isOpen={isAddNoteOpen}
           onClose={() => setIsAddNoteOpen(false)}
           onSubmit={handleAddNote}
+        />
+
+        {/* Task Done Modal */}
+        <TaskDoneModal
+          isOpen={isTaskDoneOpen}
+          onClose={() => setIsTaskDoneOpen(false)}
+          onSubmit={handleTaskDone}
+          tasks={tasks}
         />
       </div>
     </div>

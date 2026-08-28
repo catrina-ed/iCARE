@@ -1,6 +1,6 @@
 import type {
   User, CareRecipient, Medication, Dose, Appointment,
-  CareLogEntry, Alert, ShoppingItem
+  CareLogEntry, Alert, ShoppingItem, CareTask
 } from './types';
 
 // Care recipient
@@ -352,4 +352,15 @@ export const SHOPPING_ITEMS: ShoppingItem[] = [
   { id: 's4', name: 'Facial tissues', category: 'household', status: 'needed' },
   { id: 's5', name: 'Gentle soap', category: 'toiletries', status: 'purchased' },
   { id: 's6', name: 'Incontinence supplies', category: 'medical', status: 'needed' },
+];
+
+// Today's care tasks
+export const CARE_TASKS: CareTask[] = [
+  { id: 't1', title: 'Morning wash-up and dressing', category: 'personal-care', dueTime: '08:00', assignedTo: 'catina', done: true, completedBy: 'catina', completedAt: '2026-08-27T08:15:00', recurring: true },
+  { id: 't2', title: 'Blood pressure check', category: 'medical', dueTime: '09:00', assignedTo: 'catina', done: true, completedBy: 'catina', completedAt: '2026-08-27T09:05:00', recurring: true },
+  { id: 't3', title: 'Short walk in the garden', category: 'personal-care', dueTime: '11:00', assignedTo: 'markyaah', done: false, recurring: true },
+  { id: 't4', title: 'Change bed linens', category: 'household', dueTime: '13:00', assignedTo: 'destiny', done: false },
+  { id: 't5', title: 'Pick up refill from pharmacy', category: 'errand', dueTime: '15:00', assignedTo: 'trina', done: false },
+  { id: 't6', title: 'Call with Aunt Rose', category: 'social', dueTime: '17:00', assignedTo: 'trina', done: false, recurring: true },
+  { id: 't7', title: 'Evening tidy of the kitchen', category: 'household', dueTime: '19:00', assignedTo: 'destiny', done: false, recurring: true },
 ];

@@ -2,9 +2,23 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <title>iCare</title>
+    <meta name="description" content="Coordinate medications, appointments, tasks, and care notes across the family care circle." />
+
+    <!-- Paints the browser chrome cocoa so the page does not sit in a white frame. -->
+    <meta name="theme-color" content="#29261b" />
+    <meta name="color-scheme" content="dark" />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>web</title>
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <!-- iOS ignores the manifest for Add to Home Screen; these drive it instead. -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="iCare" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   </head>
   <body>
     <div id="root"></div>

@@ -1274,3 +1274,371 @@ body {
   font-family: 'Instrument Sans', 'Inter Tight', -apple-system, system-ui, sans-serif;
   letter-spacing: -0.02em;
 }
+
+/* ---------------------------------------------------------------------------
+   Dose logging — the core interaction.
+   Motion values come from the prototype: an overshoot pop on commit, and
+   ease-out entrances for the sheet and toast.
+   --------------------------------------------------------------------------- */
+@keyframes dosePop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.28); }
+  100% { transform: scale(1); }
+}
+@keyframes sheetUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+@keyframes toastUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+/* Undo toast */
+.dose-toast {
+  position: fixed;
+  left: 14px;
+  right: 14px;
+  bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px 11px 14px;
+  border-radius: 16px;
+  background: #2D2823;
+  border: 1px solid rgba(240,230,214,0.14);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45);
+  animation: toastUp .25s cubic-bezier(.2, .9, .3, 1);
+}
+
+.dose-toast-mark {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: #94AE82;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dose-toast-body { flex: 1; min-width: 0; }
+.dose-toast-text { font-size: 13px; font-weight: 600; color: #F0E6D6; }
+.dose-toast-sub  { font-size: 11px; color: #ADA192; margin-top: 1px; }
+
+.dose-toast-undo {
+  background: transparent;
+  border: 1px solid rgba(240,230,214,0.14);
+  color: #94AE82;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  min-height: 36px;
+}
+
+/* Bottom sheet */
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.sheet {
+  width: 100%;
+  max-width: 480px;
+  background: #2D2823;
+  color: #F0E6D6;
+  border-top: 1px solid rgba(240,230,214,0.14);
+  border-radius: 24px 24px 0 0;
+  padding: 10px 18px calc(30px + env(safe-area-inset-bottom, 0px));
+  max-height: 86vh;
+  overflow-y: auto;
+  animation: sheetUp .28s cubic-bezier(.2, .9, .3, 1);
+}
+
+.sheet-grabber {
+  width: 38px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(240,230,214,0.14);
+  margin: 0 auto 14px;
+}
+
+.sheet-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+
+.sheet-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: #332D26;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.sheet-title { font-size: 19px; font-weight: 500; letter-spacing: -0.3px; }
+.sheet-sub   { font-size: 12px; color: #ADA192; margin-top: 2px; }
+
+.sheet-notice {
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+  background: rgba(148, 174, 130, 0.14);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.seg {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: #25211C;
+  border-radius: 12px;
+  border: 1px solid rgba(240,230,214,0.08);
+}
+
+.seg-btn {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: transparent;
+  color: #ADA192;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  min-height: 40px;
+}
+
+.seg-btn[data-on='true'] { background: #332D26; color: #F0E6D6; font-weight: 600; }
+
+.field-label {
+  font-size: 10.5px;
+  color: #766C5E;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 18px 0 8px;
+}
+
+.chip-row { display: flex; gap: 8px; }
+
+.time-chip {
+  flex: 1;
+  padding: 10px 6px;
+  border-radius: 12px;
+  cursor: pointer;
+  background: #25211C;
+  border: 1px solid rgba(240,230,214,0.08);
+  color: #F0E6D6;
+  font-family: inherit;
+  text-align: center;
+  min-height: 52px;
+}
+
+.time-chip[data-on='true'] { background: rgba(148, 174, 130, 0.18); border-color: #94AE82; }
+.time-chip-label { font-size: 12.5px; font-weight: 600; }
+.time-chip-sub   { font-size: 10.5px; color: #ADA192; margin-top: 2px; }
+
+.reason-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.reason-chip {
+  padding: 10px 13px;
+  border-radius: 999px;
+  cursor: pointer;
+  background: #25211C;
+  border: 1px solid rgba(240,230,214,0.08);
+  color: #F0E6D6;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  min-height: 40px;
+}
+
+.reason-chip[data-on='true'] { background: rgba(203, 123, 92, 0.2); border-color: #CB7B5C; color: #CB7B5C; }
+
+.sheet-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 12px;
+  border-radius: 12px;
+  background: #25211C;
+  border: 1px solid rgba(240,230,214,0.08);
+  color: #F0E6D6;
+  font-family: inherit;
+  /* 16px keeps iOS Safari from zooming the page on focus. */
+  font-size: 16px;
+  outline: none;
+}
+
+.sheet-explainer {
+  font-size: 11.5px;
+  color: #ADA192;
+  margin: 10px 0 0;
+  line-height: 1.45;
+}
+
+.sheet-explainer strong { color: #F0E6D6; font-weight: 600; }
+
+.sheet-actions { display: flex; gap: 10px; margin-top: 20px; }
+
+.sheet-cancel {
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: transparent;
+  border: 1px solid rgba(240,230,214,0.14);
+  color: #F0E6D6;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.sheet-submit {
+  flex: 1;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: none;
+  font-family: inherit;
+  font-size: 14.5px;
+  font-weight: 700;
+  cursor: pointer;
+  background: #94AE82;
+  color: #0E1A0B;
+}
+
+.sheet-submit[data-mode='skip'] { background: #CB7B5C; color: #1F0C03; }
+
+@media (min-width: 900px) {
+  /* Anchored to the column rather than the window, so it does not sail
+     across a wide screen. */
+  .dose-toast { left: 50%; right: auto; transform: translateX(-50%); width: min(520px, calc(100% - 32px)); bottom: 24px; }
+  .sheet { border-radius: 20px; margin-bottom: 5vh; max-width: 520px; }
+  .sheet-backdrop { align-items: center; }
+}
+
+/* Meds screen — buckets, progress, dose rows */
+.meds-skipped { font-size: 12.5px; color: #ADA192; margin-top: 5px; }
+
+.progress {
+  display: flex;
+  height: 6px;
+  border-radius: 999px;
+  background: #332D26;
+  overflow: hidden;
+  margin: 12px 0 24px;
+}
+
+.progress-given { background: #94AE82; border-radius: 999px; transition: width .4s ease; }
+
+/* Hatched, not a second solid colour: "not taken with a reason" must not
+   read as the same thing as "given". */
+.progress-skipped {
+  margin-left: 2px;
+  border-radius: 999px;
+  transition: width .4s ease;
+  background: repeating-linear-gradient(45deg, #ADA192 0 3px, transparent 3px 6px);
+}
+
+.bucket-head { display: flex; align-items: baseline; gap: 10px; padding: 0 4px 10px; }
+
+.bucket-time {
+  font-family: 'Instrument Sans', 'Inter Tight', system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.3px;
+  color: #F0E6D6;
+}
+
+.bucket-ampm { font-size: 13px; color: #ADA192; font-weight: 500; margin-left: 4px; }
+
+.bucket-part {
+  font-size: 11px;
+  color: #766C5E;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.bucket-logall {
+  background: rgba(148, 174, 130, 0.16);
+  border: 1px solid rgba(148, 174, 130, 0.45);
+  color: #94AE82;
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 34px;
+}
+
+.dose-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(240,230,214,0.08);
+  transition: opacity .25s;
+}
+
+.dose-row[data-settled='true'] { opacity: 0.8; }
+.card > .dose-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+.dose-row-body { flex: 1; min-width: 0; }
+.dose-row-dose { color: #ADA192; font-weight: 500; }
+
+.dose-row-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 3px;
+  font-size: 12px;
+  color: #ADA192;
+}
+
+.dose-note { font-size: 11.5px; color: #766C5E; font-style: italic; }
+.dose-flag-skipped { font-size: 11px; color: #ADA192; font-weight: 600; letter-spacing: 0.3px; }
+.dose-flag-missed  { font-size: 11px; color: #CB7B5C; font-weight: 600; letter-spacing: 0.3px; }
+.dose-flag-due     { font-size: 11px; color: #D9A86A; font-weight: 600; letter-spacing: 0.3px; }
+
+.dose-row-action {
+  flex-shrink: 0;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  min-height: 36px;
+  background: transparent;
+  border: 1px solid rgba(240,230,214,0.14);
+  color: #F0E6D6;
+}
+
+.dose-row-action[data-status='given'],
+.dose-row-action[data-status='skipped'] {
+  border: none;
+  color: #766C5E;
+  background: transparent;
+}
+
+.dose-row-action[data-status='missed'] { background: #CB7B5C; color: #1F0C03; border: none; }
+.dose-row-action[data-status='due']    { background: #D9A86A; color: #221703; border: none; }
+
+.action-button:disabled { opacity: 0.45; cursor: not-allowed; }

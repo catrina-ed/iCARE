@@ -5,6 +5,9 @@ import { CareProvider } from './state/CareProvider'
 import { BottomTabs } from './components/BottomTabs'
 import { ViewToggle } from './components/ViewToggle'
 import { RoleSwitcher } from './components/RoleSwitcher'
+import { DoseInteractionProvider } from './dose/doseInteraction'
+import { DoseSheet } from './dose/DoseSheet'
+import { DoseToast } from './dose/DoseToast'
 import { useCare } from './state/CareProvider'
 import { Home } from './screens/Home'
 import { Meds } from './screens/Meds'
@@ -42,6 +45,9 @@ function Shell() {
         </Routes>
       </div>
       <BottomTabs />
+      {/* Mounted once at the shell so a dose can be logged from any screen. */}
+      <DoseToast />
+      <DoseSheet />
     </div>
   )
 }
@@ -65,10 +71,12 @@ function App() {
 
   return (
     <CareProvider>
-      <ViewToggle />
-      <HashRouter>
-        <Shell />
-      </HashRouter>
+      <DoseInteractionProvider>
+        <ViewToggle />
+        <HashRouter>
+          <Shell />
+        </HashRouter>
+      </DoseInteractionProvider>
     </CareProvider>
   )
 }

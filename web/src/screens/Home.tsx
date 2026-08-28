@@ -3,25 +3,24 @@ import { Link } from 'react-router-dom';
 import { COLORS } from 'shared/theme';
 import { USERS, ALERTS_MORNING_CALM, ALERTS_MORNING_ALERT, MEDICATIONS } from 'shared/data';
 import { useCare } from '../state/CareProvider';
-import { LogDoseModal } from '../components/LogDoseModal';
+import { DoseCheck } from '../dose/DoseCheck';
+import { useDoseInteraction } from '../dose/doseInteraction';
 import { AddNoteModal } from '../components/AddNoteModal';
 import { TaskDoneModal } from '../components/TaskDoneModal';
 import { useSession } from '../hooks/useSession';
 import { supabase } from '../lib/supabase';
 
-const STATUS_COLORS: Record<string, string> = {
-  given: COLORS.success,
-  upcoming: COLORS.textMuted,
-  due: COLORS.warn,
-  missed: COLORS.danger,
-};
 
 export function Home() {
   const { session } = useSession();
-  const { doses, careLog, tasks, currentUser, isAdmin, logDose, addNote, completeTask, resetAll } = useCare();
+  const { doses, careLog, tasks, currentUser, isAdmin, addNote, completeTask, resetAll } = useCare();
+  const { openSheet, readOnly } = useDoseInteraction();
+
+  // "Log a dose" jumps straight into the next thing actually needing logging.
+  const nextOpen = doses.find(d => d.status === 'due' || d.status === 'missed')
+    ?? doses.find(d => d.status === 'upcoming');
 
   const [showAlerts, setShowAlerts] = useState(false);
-  const [isLogDoseOpen, setIsLogDoseOpen] = useState(false);
   const [isAddNoteOpen, setIsAddNoteOpen] = useState(false);
   const [isTaskDoneOpen, setIsTaskDoneOpen] = useState(false);
 
@@ -109,7 +108,11 @@ export function Home() {
       <div className="section">
         <h2 className="section-title">Quick Actions</h2>
         <div className="actions-grid">
-          <button className="action-button" onClick={() => setIsLogDoseOpen(true)}>
+          <button
+            className="action-button"
+            disabled={readOnly || !nextOpen}
+            onClick={() => nextOpen && openSheet(nextOpen.id, 'log')}
+          >
             <div className="action-icon">💊</div>
             <div className="action-label">Log Dose</div>
           </button>
@@ -131,7 +134,6 @@ export function Home() {
         </h3>
         {doses.slice(0, 5).map(dose => {
           const med = MEDICATIONS.find(m => m.id === dose.medicationId);
-          const color = STATUS_COLORS[dose.status] ?? COLORS.textMuted;
           return (
             <div key={dose.id} className="dose-item">
               <div className="dose-info">
@@ -141,9 +143,7 @@ export function Home() {
                   <div className="dose-details">{med?.dose}</div>
                 </div>
               </div>
-              <div className="dose-status" style={{ borderColor: color, backgroundColor: color + '20', color }}>
-                {dose.status.charAt(0).toUpperCase() + dose.status.slice(1)}
-              </div>
+              <DoseCheck dose={dose} size={28} />
             </div>
           );
         })}
@@ -203,7 +203,6 @@ export function Home() {
         </div>
       </div>
 
-      <LogDoseModal isOpen={isLogDoseOpen} onClose={() => setIsLogDoseOpen(false)} onSubmit={logDose} />
       <AddNoteModal isOpen={isAddNoteOpen} onClose={() => setIsAddNoteOpen(false)} onSubmit={addNote} />
       <TaskDoneModal isOpen={isTaskDoneOpen} onClose={() => setIsTaskDoneOpen(false)} onSubmit={completeTask} tasks={tasks} />
     </>

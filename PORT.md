@@ -11,8 +11,8 @@ component with the right name exists.
 |---|---------|------------------|--------|
 | 1 | Hearth palette + type ramp | `theme.jsx` | Done |
 | 2 | Generic medication / condition data | `data.jsx` | Done |
-| 3 | Dose-logging core — one tap, undo toast, not-taken sheet, Log all N | `dose-log.jsx` | In progress |
-| 4 | Meds screen — time buckets, progress bar with skipped segment, sub-tabs | `meds.jsx` | Not started |
+| 3 | Dose-logging core — one tap, undo toast, not-taken sheet, Log all N | `dose-log.jsx` | Done |
+| 4 | Meds screen — time buckets, progress bar with skipped segment | `meds.jsx` | Done (sub-tabs pending) |
 | 5 | Tab restructure — Home / Meds / Move / Log / More | `app.jsx` | Not started |
 | 6 | Home dashboard — summary cells, alert rows with "Log it", up next | `dashboard.jsx` | Not started |
 | 7 | Care Log — compose box, tags, confidential toggle | `carelog.jsx` | Not started |

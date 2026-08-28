@@ -9,6 +9,10 @@
     "skipLibCheck": true,
 
     /* Bundler mode */
+    "paths": {
+      "shared/*": ["../shared/*"]
+    },
+
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,

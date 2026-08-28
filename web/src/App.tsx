@@ -5,14 +5,46 @@ import {
   GAIL, USERS, TODAYS_DOSES_MORNING, CARE_LOG,
   ALERTS_MORNING_CALM, ALERTS_MORNING_ALERT, MEDICATIONS,
 } from 'shared/data'
+import { LogDoseModal } from './components/LogDoseModal'
+import { AddNoteModal } from './components/AddNoteModal'
+import type { Dose, CareLogEntry, CareLogTag } from 'shared/types'
 
 function App() {
   const [showAlerts, setShowAlerts] = useState(false)
   const [currentUser] = useState('trina')
+  const [isLogDoseOpen, setIsLogDoseOpen] = useState(false)
+  const [isAddNoteOpen, setIsAddNoteOpen] = useState(false)
+  const [doses, setDoses] = useState<Dose[]>(TODAYS_DOSES_MORNING)
+  const [careLog, setCareLog] = useState<CareLogEntry[]>(CARE_LOG)
 
   const user = USERS[currentUser]
   const alerts = showAlerts ? ALERTS_MORNING_ALERT : ALERTS_MORNING_CALM
-  const doses = TODAYS_DOSES_MORNING
+
+  const handleLogDose = (medicationId: string, notes: string) => {
+    const time = new Date().toTimeString().slice(0, 5)
+    const newDose: Dose = {
+      id: `dose-${Date.now()}`,
+      medicationId,
+      time,
+      status: 'given',
+      confirmedBy: currentUser,
+      confirmedAt: new Date().toISOString(),
+      notes: notes || undefined,
+    }
+    setDoses([...doses, newDose])
+  }
+
+  const handleAddNote = (text: string, tag: CareLogTag, confidential: boolean) => {
+    const newEntry: CareLogEntry = {
+      id: `log-${Date.now()}`,
+      timestamp: new Date().toISOString(),
+      author: currentUser,
+      tag,
+      text,
+      confidential,
+    }
+    setCareLog([newEntry, ...careLog])
+  }
 
   const givenCount = doses.filter(d => d.status === 'given').length
   const upcomingCount = doses.filter(d => d.status === 'upcoming' || d.status === 'due').length
@@ -74,11 +106,11 @@ function App() {
         <div className="section">
           <h2 className="section-title">Quick Actions</h2>
           <div className="actions-grid">
-            <button className="action-button">
+            <button className="action-button" onClick={() => setIsLogDoseOpen(true)}>
               <div className="action-icon">💊</div>
               <div className="action-label">Log Dose</div>
             </button>
-            <button className="action-button">
+            <button className="action-button" onClick={() => setIsAddNoteOpen(true)}>
               <div className="action-icon">📝</div>
               <div className="action-label">Add Note</div>
             </button>
@@ -123,7 +155,7 @@ function App() {
         {/* Recent Care Log */}
         <div className="card">
           <h3 className="card-title">Recent Notes</h3>
-          {CARE_LOG.slice(0, 3).map(entry => (
+          {careLog.slice(0, 3).map(entry => (
             <div key={entry.id} className="log-entry">
               <div className="log-header">
                 <div className="log-time">{entry.timestamp.split('T')[1]?.slice(0, 5)}</div>
@@ -148,6 +180,20 @@ function App() {
             </div>
           </div>
         </div>
+
+        {/* Log Dose Modal */}
+        <LogDoseModal
+          isOpen={isLogDoseOpen}
+          onClose={() => setIsLogDoseOpen(false)}
+          onSubmit={handleLogDose}
+        />
+
+        {/* Add Note Modal */}
+        <AddNoteModal
+          isOpen={isAddNoteOpen}
+          onClose={() => setIsAddNoteOpen(false)}
+          onSubmit={handleAddNote}
+        />
       </div>
     </div>
   )

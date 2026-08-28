@@ -15,8 +15,8 @@ component with the right name exists.
 | 4 | Meds screen — time buckets, progress bar with skipped segment | `meds.jsx` | Done (sub-tabs pending) |
 | 5 | Tab restructure — Home / Meds / Move / Log / More | `app.jsx` | Done |
 | 6 | Home dashboard — summary cells, alert rows with "Log it", up next | `dashboard.jsx` | Done |
-| 7 | Care Log — compose box, tags, confidential toggle | `carelog.jsx` | Not started |
-| 8 | Calendar — week strip, attendee filter | `calendar.jsx` | Not started |
+| 7 | Care Log — compose box, tags, confidential toggle | `carelog.jsx` | Done |
+| 8 | Calendar — week strip, attendee filter | `calendar.jsx` | Done |
 | 9 | Movement | `exercise.jsx` | Done |
 | 10 | Moments | `moments.jsx` | Not started |
 | 11 | Nutrition | `nutrition.jsx` | Not started |

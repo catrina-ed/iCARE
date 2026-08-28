@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import {
-  TODAYS_DOSES_MORNING, CARE_LOG, CARE_TASKS, SHOPPING_ITEMS, EXERCISE_LOG, USERS,
+  TODAYS_DOSES_MORNING, CARE_LOG, CARE_TASKS, SHOPPING_ITEMS, EXERCISE_LOG, MOMENTS, USERS,
 } from 'shared/data';
 import { ADMIN_LIMIT } from 'shared/types';
 import type {
-  Dose, CareLogEntry, CareTask, ShoppingItem, UserRole, ExerciseSession,
+  Dose, CareLogEntry, CareTask, ShoppingItem, UserRole, ExerciseSession, Moment,
 } from 'shared/types';
 import { usePersistentState, resetPersistedState } from '../hooks/usePersistentState';
 import { CareContext, type CareState } from './careContext';
@@ -37,6 +37,7 @@ export function MockCareProvider({ children }: { children: React.ReactNode }) {
   const [tasks, setTasks] = usePersistentState<CareTask[]>('tasks', CARE_TASKS);
   const [shopping, setShopping] = usePersistentState<ShoppingItem[]>('shopping', SHOPPING_ITEMS);
   const [exercise, setExercise] = usePersistentState<ExerciseSession[]>('exercise', EXERCISE_LOG);
+  const [moments, setMoments] = usePersistentState<Moment[]>('moments', MOMENTS);
 
   // Mirrors the database policy: a confidential note is visible only to its
   // author and to admins. Enforced again here so the UI cannot show what the
@@ -53,6 +54,7 @@ export function MockCareProvider({ children }: { children: React.ReactNode }) {
     tasks,
     shopping,
     exercise,
+    moments,
     currentUser,
     setCurrentUser,
     role,
@@ -157,6 +159,17 @@ export function MockCareProvider({ children }: { children: React.ReactNode }) {
       }, ...exercise]);
     },
 
+    shareMoment: (caption, to, hasPhoto) => {
+      setMoments([{
+        id: `mo-${Date.now()}`,
+        by: currentUser,
+        to,
+        caption,
+        timestamp: new Date().toISOString(),
+        hasPhoto,
+      }, ...moments]);
+    },
+
     claimItem: (itemId) => {
       setShopping(shopping.map(i => i.id === itemId
         ? { ...i, status: 'assigned' as const, assignedTo: currentUser }
@@ -176,8 +189,9 @@ export function MockCareProvider({ children }: { children: React.ReactNode }) {
       setTasks(CARE_TASKS);
       setShopping(SHOPPING_ITEMS);
       setExercise(EXERCISE_LOG);
+      setMoments(MOMENTS);
     },
-  }), [doses, careLog, visibleCareLog, tasks, shopping, exercise, setExercise, currentUser, setCurrentUser,
+  }), [doses, careLog, visibleCareLog, tasks, shopping, exercise, setExercise, moments, setMoments, currentUser, setCurrentUser,
        role, isAdmin, isMasterAdmin, adminIds, adminSlotsLeft, masterAdminId,
        grantedAdminIds, setGrantedAdminIds,
        setDoses, setCareLog, setTasks, setShopping]);

@@ -33,6 +33,15 @@ export function More() {
       to: '/supplies', icon: '🛒', label: 'Supplies',
       sub: needed ? `${needed} needed` : 'Nothing needed',
     }]),
+    { to: '/moments', icon: '📷', label: 'Moments', sub: 'Photos & fun updates' },
+    { to: '/nutrition', icon: '🍽', label: 'Nutrition', sub: 'Meal suggestions for today' },
+    { to: '/story', icon: '✨', label: 'Care story', sub: 'This week, in review' },
+    // Admins and the recipient herself; a caretaker does not need to manage
+    // someone else's device connections.
+    ...(isAdmin || isRecipient ? [{
+      to: '/connectors', icon: '📶', label: 'Connectors',
+      sub: 'Watch, glucose, portal & more',
+    }] : []),
     ...(isAdmin ? [{
       to: '/team', icon: '👥', label: 'Care circle',
       sub: 'Roles and who can see what',

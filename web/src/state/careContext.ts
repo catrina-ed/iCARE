@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 import type {
   Dose, CareLogEntry, CareLogTag, CareTask, ShoppingItem, UserRole,
-  ExerciseSession, ExerciseIntensity,
+  ExerciseSession, ExerciseIntensity, Moment,
 } from 'shared/types';
 
 /**
@@ -17,6 +17,7 @@ export interface CareState {
   tasks: CareTask[];
   shopping: ShoppingItem[];
   exercise: ExerciseSession[];
+  moments: Moment[];
   /** Every note, regardless of who may see it. Admin-only in practice. */
   allCareLog: CareLogEntry[];
   currentUser: string;
@@ -53,6 +54,7 @@ export interface CareState {
     intensity: ExerciseIntensity;
     note?: string;
   }) => void;
+  shareMoment: (caption: string, to: string, hasPhoto: boolean) => void;
   claimItem: (itemId: string) => void;
   purchaseItem: (itemId: string) => void;
   resetAll: () => void;

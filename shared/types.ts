@@ -164,3 +164,13 @@ export interface ExerciseSession {
   by: string;
   date: string; // YYYY-MM-DD
 }
+
+export interface Moment {
+  id: string;
+  by: string;        // userId
+  to: string;        // userId, or 'all'
+  caption: string;
+  timestamp: string; // ISO
+  /** Whether the moment carries a photo. The demo renders a placeholder. */
+  hasPhoto?: boolean;
+}

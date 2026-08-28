@@ -16,6 +16,10 @@ import { CareLog } from './screens/CareLog'
 import { Supplies } from './screens/Supplies'
 import { Movement } from './screens/Movement'
 import { More } from './screens/More'
+import { Moments } from './screens/Moments'
+import { Nutrition } from './screens/Nutrition'
+import { CareStory } from './screens/CareStory'
+import { Connectors } from './screens/Connectors'
 import { Team } from './screens/Team'
 import { useSession } from './hooks/useSession'
 import { isSupabaseConfigured } from './lib/supabase'
@@ -44,6 +48,10 @@ function Shell() {
           <Route path="/supplies"  element={guard(<Supplies />)} />
           <Route path="/team"      element={guard(<Team />)} />
           <Route path="/more"      element={<More />} />
+          <Route path="/moments"   element={<Moments />} />
+          <Route path="/nutrition" element={<Nutrition />} />
+          <Route path="/story"     element={<CareStory />} />
+          <Route path="/connectors" element={<Connectors />} />
           <Route path="*"          element={<Home />} />
         </Routes>
       </div>

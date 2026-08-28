@@ -18,10 +18,10 @@ component with the right name exists.
 | 7 | Care Log — compose box, tags, confidential toggle | `carelog.jsx` | Done |
 | 8 | Calendar — week strip, attendee filter | `calendar.jsx` | Done |
 | 9 | Movement | `exercise.jsx` | Done |
-| 10 | Moments | `moments.jsx` | Not started |
-| 11 | Nutrition | `nutrition.jsx` | Not started |
-| 12 | Care Story | `care-story.jsx` | Not started |
-| 13 | Connectors | `connectors.jsx` | Not started |
+| 10 | Moments | `moments.jsx` | Done |
+| 11 | Nutrition | `nutrition.jsx` | Done |
+| 12 | Care Story | `care-story.jsx` | Done |
+| 13 | Connectors | `connectors.jsx` | Done (sample-data banner added) |
 | 14 | Voice mode (Gail only) | `voice.jsx` | Not started |
 | 15 | Day-one / empty states | `day-one.jsx` | Not started |
 | 16 | Desktop reflow | `desktop.jsx` | Not started |

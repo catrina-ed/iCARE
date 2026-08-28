@@ -1,6 +1,6 @@
 import type {
   User, CareRecipient, Medication, Dose, Appointment,
-  CareLogEntry, Alert, ShoppingItem, CareTask, ExerciseSession
+  CareLogEntry, Alert, ShoppingItem, CareTask, ExerciseSession, Moment
 } from './types';
 
 // Demo dates are relative to whenever the app is opened, so the sample day is
@@ -447,3 +447,25 @@ export const ON_SHIFT = {
   morning: { who: 'catina', from: '8:00 AM', to: '6:00 PM' },
   evening: { who: 'trina',  from: '6:00 PM', to: '10:00 PM' },
 };
+
+// Moments — the lighter feed. Photos, jokes, small wins. Deliberately not the
+// clinical care log.
+export const MOMENTS: Moment[] = [
+  { id: 'mo1', by: 'catina',   to: 'all',   timestamp: at(-1, '10:20'), hasPhoto: true,
+    caption: 'Caught her mid-laugh at the kitchen table — someone told a good one.' },
+  { id: 'mo2', by: 'gail',     to: 'trina', timestamp: at(-1, '15:05'),
+    caption: "Told Trina a joke today: \"Why don't skeletons fight? They don't have the guts.\"" },
+  { id: 'mo3', by: 'markyaah', to: 'all',   timestamp: at(0, '17:40'), hasPhoto: true,
+    caption: 'Beat me at cards again. Three times in a row.' },
+];
+
+// Meal ideas. Static reference content, not user data — a plain import is
+// correct here; nobody creates or edits these in the app.
+export const MEAL_SUGGESTIONS = [
+  { id: 'b', meal: 'Breakfast', dish: 'Oatmeal with banana and a drizzle of honey',
+    why: 'Gentle on digestion, supports steady energy for Condition A' },
+  { id: 'l', meal: 'Lunch', dish: 'Turkey and vegetable soup, whole-grain roll',
+    why: 'Lower sodium option, mindful of Condition B' },
+  { id: 'd', meal: 'Dinner', dish: 'Baked salmon, steamed green beans, brown rice',
+    why: 'Supports Condition C · avoids Allergy A' },
+];

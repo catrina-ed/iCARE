@@ -575,9 +575,9 @@ body {
 /* ---------------------------------------------------------------------------
    Desktop.
 
-   Default is an ordinary centred web layout, because someone opening the link
-   on a laptop is a real user, not an audience. The phone frame is opt-in via
-   the toggle and exists for demoing, not for daily use.
+   A real layout rather than a phone column with margins: navigation moves to a
+   sidebar and the cards flow into as many columns as the window allows. The
+   phone frame below is opt-in and exists only for demoing.
    --------------------------------------------------------------------------- */
 @media (min-width: 900px) {
   body {
@@ -585,23 +585,93 @@ body {
     background-color: #29261b;
   }
 
-  .container {
-    max-width: 560px;
-  }
-
   .app {
-    padding-bottom: 100px;
+    padding: 0 0 48px;
+    margin-left: 232px;
   }
 
-  /* The tab bar spanning a 1440px window looks wrong; keep it to the column. */
+  .container {
+    max-width: 1180px;
+    padding: 32px 40px 0;
+    /* Cards flow into however many columns fit; the browser decides, so the
+       layout holds from a small laptop up to a wide monitor. */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 20px;
+    align-items: start;
+  }
+
+  /* Full-width elements: the greeting, alerts, and quick actions read as
+     page-level rather than as one card among several. */
+  .header,
+  .section {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+  }
+
+  .card {
+    margin-bottom: 0;
+    height: fit-content;
+  }
+
+  /* Within a day, appointments should sit side by side too. */
+  .section .appt-card {
+    margin-bottom: 12px;
+  }
+
+  .summary-card .summary-grid {
+    justify-content: flex-start;
+    gap: 64px;
+  }
+
+  /* Navigation becomes a sidebar. */
   .tab-bar {
-    max-width: 560px;
-    left: 50%;
+    top: 0;
+    bottom: 0;
+    left: 0;
     right: auto;
-    transform: translateX(-50%);
-    border-left: 1px solid #4a4640;
+    width: 232px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 4px;
+    padding: 32px 16px;
+    border-top: none;
     border-right: 1px solid #4a4640;
-    border-radius: 16px 16px 0 0;
+    background-color: #221f16;
+  }
+
+  .tab-bar::before {
+    content: 'iCare';
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    color: #6b9f8d;
+    padding: 0 12px 24px;
+  }
+
+  .tab {
+    flex: 0 0 auto;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .tab:hover {
+    background-color: #2f2c22;
+  }
+
+  .tab-active {
+    background-color: rgba(107, 159, 141, 0.14);
+  }
+
+  .tab-icon { font-size: 18px; }
+
+  .tab-label {
+    font-size: 15px;
+    font-weight: 500;
   }
 
   .view-toggle {
@@ -647,22 +717,58 @@ body {
 
   :root[data-view='phone'] .app::-webkit-scrollbar { display: none; }
 
-  :root[data-view='phone'] .container { max-width: 100%; }
+  :root[data-view='phone'] .app {
+    margin-left: 0;
+  }
+
+  :root[data-view='phone'] .container {
+    max-width: 100%;
+    display: block;
+    padding: 0 16px;
+  }
+
+  :root[data-view='phone'] .header,
+  :root[data-view='phone'] .section {
+    margin-bottom: 32px;
+  }
+
+  :root[data-view='phone'] .card {
+    margin-bottom: 16px;
+  }
 
   /* Fixed would pin this to the browser window, outside the phone. */
   :root[data-view='phone'] .tab-bar {
     position: sticky;
+    top: auto;
     bottom: 0;
     left: auto;
     right: auto;
+    width: auto;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: stretch;
     transform: none;
     max-width: 100%;
     margin-top: 24px;
-    padding-bottom: 8px;
+    padding: 8px 0;
     border-radius: 0;
-    border-left: none;
+    border-top: 1px solid #4a4640;
     border-right: none;
   }
+
+  :root[data-view='phone'] .tab-bar::before { content: none; }
+
+  :root[data-view='phone'] .tab {
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    padding: 6px 0;
+    border-radius: 0;
+  }
+
+  :root[data-view='phone'] .tab-label { font-size: 11px; }
+  :root[data-view='phone'] .tab-icon { font-size: 20px; }
 }
 
 /* Hidden on real phones, where the toggle would be meaningless. */

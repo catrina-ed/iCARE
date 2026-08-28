@@ -3,6 +3,25 @@ import type {
   CareLogEntry, Alert, ShoppingItem, CareTask
 } from './types';
 
+// Demo dates are relative to whenever the app is opened, so the sample day is
+// always "today" rather than slowly ageing into a stale week.
+const startOfToday = () => {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  return d;
+};
+
+/** YYYY-MM-DD, `offset` days from today. Local, not UTC. */
+const day = (offset: number): string => {
+  const d = startOfToday();
+  d.setDate(d.getDate() + offset);
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+};
+
+/** ISO timestamp at HH:MM, `offset` days from today. */
+const at = (offset: number, hhmm: string): string => `${day(offset)}T${hhmm}:00`;
+
 // Care recipient
 export const GAIL: CareRecipient = {
   id: 'gail',
@@ -186,7 +205,7 @@ export const APPOINTMENTS: Appointment[] = [
     id: 'a1',
     title: 'Cardiology follow-up',
     provider: 'Dr. Aisha Williams',
-    date: '2026-08-27',
+    date: day(0),
     startTime: '10:30',
     endTime: '11:15',
     location: 'UChicago Heart Clinic',
@@ -199,7 +218,7 @@ export const APPOINTMENTS: Appointment[] = [
     id: 'a2',
     title: 'Home health check',
     provider: 'Nurse Kemi',
-    date: '2026-08-28',
+    date: day(1),
     startTime: '14:00',
     endTime: '14:45',
     location: 'Home visit',
@@ -212,7 +231,7 @@ export const APPOINTMENTS: Appointment[] = [
     id: 'a3',
     title: 'Physical therapy',
     provider: 'Marisol Rivera, DPT',
-    date: '2026-08-29',
+    date: day(2),
     startTime: '14:00',
     endTime: '15:00',
     location: 'Rehab @ 87th & Stony',
@@ -225,7 +244,7 @@ export const APPOINTMENTS: Appointment[] = [
     id: 'a4',
     title: 'Caseworker check-in',
     provider: 'Jasmine R.',
-    date: '2026-08-30',
+    date: day(3),
     startTime: '11:00',
     endTime: '11:45',
     location: 'Phone',
@@ -240,7 +259,7 @@ export const APPOINTMENTS: Appointment[] = [
 export const CARE_LOG: CareLogEntry[] = [
   {
     id: 'c7',
-    timestamp: '2026-08-27T18:20:00',
+    timestamp: at(0, '18:20'),
     author: 'trina',
     tag: 'health',
     text: 'Spoke with Dr. Williams about the swelling in her ankles. She wants us tracking weight every morning before breakfast, same scale each time.',
@@ -248,7 +267,7 @@ export const CARE_LOG: CareLogEntry[] = [
   },
   {
     id: 'c8',
-    timestamp: '2026-08-27T17:05:00',
+    timestamp: at(0, '17:05'),
     author: 'trina',
     tag: 'mood',
     text: 'Mom asked me again whether she is a burden. Third time this month. I want to raise it with Dr. Williams privately before saying anything to the wider team.',
@@ -256,7 +275,7 @@ export const CARE_LOG: CareLogEntry[] = [
   },
   {
     id: 'c9',
-    timestamp: '2026-08-27T15:30:00',
+    timestamp: at(0, '15:30'),
     author: 'markyaah',
     tag: 'mobility',
     text: 'Walked to the corner and back, no cane. Slower on the way home but steady. She was proud of it.',
@@ -264,7 +283,7 @@ export const CARE_LOG: CareLogEntry[] = [
   },
   {
     id: 'c10',
-    timestamp: '2026-08-27T13:15:00',
+    timestamp: at(0, '13:15'),
     author: 'destiny',
     tag: 'nutrition',
     text: 'Ate about half of lunch. Said the soup was too salty. Made her a yogurt with berries after and she finished that.',
@@ -272,7 +291,7 @@ export const CARE_LOG: CareLogEntry[] = [
   },
   {
     id: 'c11',
-    timestamp: '2026-08-27T12:40:00',
+    timestamp: at(0, '12:40'),
     author: 'markyaah',
     tag: 'general',
     text: 'She mentioned money worries again while we were folding laundry. Flagging for Trina only, did not want to put it in the open log.',
@@ -280,7 +299,7 @@ export const CARE_LOG: CareLogEntry[] = [
   },
   {
     id: 'c1',
-    timestamp: '2026-08-27T07:15:00',
+    timestamp: at(0, '07:15'),
     author: 'catina',
     tag: 'general',
     text: 'Slept well, woke at 6:30. Had coffee and oatmeal with banana. Good mood, hummed along to the radio.',
@@ -288,7 +307,7 @@ export const CARE_LOG: CareLogEntry[] = [
   },
   {
     id: 'c2',
-    timestamp: '2026-08-27T09:10:00',
+    timestamp: at(0, '09:10'),
     author: 'catina',
     tag: 'meds',
     text: 'Morning meds taken without fuss. Needed to split one of them with applesauce.',
@@ -296,7 +315,7 @@ export const CARE_LOG: CareLogEntry[] = [
   },
   {
     id: 'c3',
-    timestamp: '2026-08-27T11:40:00',
+    timestamp: at(0, '11:40'),
     author: 'catina',
     tag: 'general',
     text: 'All good today — we played cards together for a while. No issues.',
@@ -304,7 +323,7 @@ export const CARE_LOG: CareLogEntry[] = [
   },
   {
     id: 'c4',
-    timestamp: '2026-08-27T11:48:00',
+    timestamp: at(0, '11:48'),
     author: 'catina',
     tag: 'mood',
     text: 'Seemed a little disoriented this morning — asked twice about Dad. Mood lifted by lunchtime. Letting Trina know.',
@@ -312,7 +331,7 @@ export const CARE_LOG: CareLogEntry[] = [
   },
   {
     id: 'c5',
-    timestamp: '2026-08-27T12:30:00',
+    timestamp: at(0, '12:30'),
     author: 'catina',
     tag: 'nutrition',
     text: 'Lunch: half a turkey sandwich, cucumber slices, ginger tea. Ate about 60%.',
@@ -320,7 +339,7 @@ export const CARE_LOG: CareLogEntry[] = [
   },
   {
     id: 'c6',
-    timestamp: '2026-08-27T14:10:00',
+    timestamp: at(0, '14:10'),
     author: 'catina',
     tag: 'mobility',
     text: 'Walked to mailbox and back. About 12 minutes, no cane needed today.',
@@ -339,7 +358,7 @@ export const ALERTS_MORNING_ALERT: Alert[] = [
     title: '1:00 PM dose — missed',
     subtitle: 'No dose logged · 32 min past window',
     relatedId: 'mv',
-    timestamp: '2026-08-27T13:32:00',
+    timestamp: at(0, '13:32'),
   },
   {
     id: 'al2',
@@ -348,7 +367,7 @@ export const ALERTS_MORNING_ALERT: Alert[] = [
     title: 'Furosemide running low',
     subtitle: '6 days remaining · refill at pharmacy',
     relatedId: 'fur',
-    timestamp: '2026-08-27T13:30:00',
+    timestamp: at(0, '13:30'),
   },
 ];
 
@@ -360,7 +379,7 @@ export const ALERTS_EVENING_CALM: Alert[] = [
     title: '9:00 PM dose coming up',
     subtitle: 'In 2 hours · assigned to Trina',
     relatedId: 'ato',
-    timestamp: '2026-08-27T19:00:00',
+    timestamp: at(0, '19:00'),
   },
 ];
 
@@ -372,7 +391,7 @@ export const ALERTS_EVENING_ALERT: Alert[] = [
     title: '6:00 PM dose — due 18 min ago',
     subtitle: 'Trina is on shift · tap to log',
     relatedId: 'mem',
-    timestamp: '2026-08-27T18:18:00',
+    timestamp: at(0, '18:18'),
   },
   {
     id: 'al5',
@@ -380,7 +399,7 @@ export const ALERTS_EVENING_ALERT: Alert[] = [
     severity: 'warn',
     title: 'Comfort Keepers invoice overdue',
     subtitle: '$420 · due Jun 3 · assigned Markyaah',
-    timestamp: '2026-08-27T18:00:00',
+    timestamp: at(0, '18:00'),
   },
   {
     id: 'al6',
@@ -388,7 +407,7 @@ export const ALERTS_EVENING_ALERT: Alert[] = [
     severity: 'info',
     title: 'Catina finished handoff at 6:02 PM',
     subtitle: '3 items flagged for Trina',
-    timestamp: '2026-08-27T18:02:00',
+    timestamp: at(0, '18:02'),
   },
 ];
 
@@ -404,8 +423,8 @@ export const SHOPPING_ITEMS: ShoppingItem[] = [
 
 // Today's care tasks
 export const CARE_TASKS: CareTask[] = [
-  { id: 't1', title: 'Morning wash-up and dressing', category: 'personal-care', dueTime: '08:00', assignedTo: 'catina', done: true, completedBy: 'catina', completedAt: '2026-08-27T08:15:00', recurring: true },
-  { id: 't2', title: 'Blood pressure check', category: 'medical', dueTime: '09:00', assignedTo: 'catina', done: true, completedBy: 'catina', completedAt: '2026-08-27T09:05:00', recurring: true },
+  { id: 't1', title: 'Morning wash-up and dressing', category: 'personal-care', dueTime: '08:00', assignedTo: 'catina', done: true, completedBy: 'catina', completedAt: at(0, '08:15'), recurring: true },
+  { id: 't2', title: 'Blood pressure check', category: 'medical', dueTime: '09:00', assignedTo: 'catina', done: true, completedBy: 'catina', completedAt: at(0, '09:05'), recurring: true },
   { id: 't3', title: 'Short walk in the garden', category: 'personal-care', dueTime: '11:00', assignedTo: 'markyaah', done: false, recurring: true },
   { id: 't4', title: 'Change bed linens', category: 'household', dueTime: '13:00', assignedTo: 'destiny', done: false },
   { id: 't5', title: 'Pick up refill from pharmacy', category: 'errand', dueTime: '15:00', assignedTo: 'trina', done: false },

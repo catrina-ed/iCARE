@@ -24,7 +24,7 @@ component with the right name exists.
 | 13 | Connectors | `connectors.jsx` | Done (sample-data banner added) |
 | 14 | Voice mode (Gail only) | `voice.jsx` | Done (speech untested on a real device) |
 | 15 | Day-one / empty states | `day-one.jsx` | Not started |
-| 16 | Desktop reflow | `desktop.jsx` | Not started |
+| 16 | Desktop reflow | `desktop.jsx` | Partial — sidebar, card grid, and the 7-column calendar done; the per-screen two-column layouts (Meds refills rail, Log filter rail, Home right rail) are not |
 
 ## Rules for the port
 

@@ -92,7 +92,34 @@ export function Calendar() {
         ))}
       </div>
 
-      <div className="section">
+      {/* Desktop: the whole week at once, one column per day. */}
+      <div className="week-grid">
+        {days.map((day, i) => {
+          const dayAppointments = forDay(day.iso);
+          return (
+            <div key={day.iso} className="week-col">
+              <div className="week-col-head" data-today={i === todayIndex}>
+                <div className="week-col-dow">{DOW[day.date.getDay()]}</div>
+                <div className="week-col-num">{day.date.getDate()}</div>
+              </div>
+              <div className="week-col-body">
+                {dayAppointments.length === 0
+                  ? <div className="week-col-empty">—</div>
+                  : dayAppointments.map(a => (
+                    <div key={a.id} className="week-appt"
+                      style={{ borderLeftColor: TYPE_COLOUR[a.type] ?? COLORS.primary }}>
+                      <div className="week-appt-time">{to12h(a.startTime)}</div>
+                      <div className="week-appt-title">{a.title}</div>
+                      <div className="week-appt-who">{USERS[a.assignedTo]?.name}</div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="section day-detail">
         <h2 className="section-title">
           {chosen.date.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}
           {selected === todayIndex ? ' · Today' : ''}

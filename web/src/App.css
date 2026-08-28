@@ -2449,3 +2449,59 @@ body {
 
 /* The floating mic would sit on top of the toast otherwise. */
 .voice-fab ~ .dose-toast { bottom: calc(160px + env(safe-area-inset-bottom, 0px)); }
+
+/* Calendar — desktop week grid.
+   Hidden on phones, where a seven-column week would be unreadable; the day
+   strip and detail list are hidden on desktop in turn. */
+.week-grid { display: none; }
+
+@media (min-width: 900px) {
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    grid-column: 1 / -1;
+  }
+
+  .week-strip,
+  .day-detail { display: none; }
+
+  .week-col-head { padding: 4px 4px 8px; text-align: center; }
+
+  .week-col-dow {
+    font-size: 10px; letter-spacing: 0.8px; text-transform: uppercase;
+    font-weight: 600; color: #766C5E;
+  }
+
+  .week-col-num {
+    font-family: 'Instrument Sans', 'Inter Tight', system-ui, sans-serif;
+    font-size: 18px; font-weight: 600; color: #F0E6D6; letter-spacing: -0.2px;
+  }
+
+  .week-col-head[data-today='true'] .week-col-num,
+  .week-col-head[data-today='true'] .week-col-dow { color: #94AE82; }
+
+  .week-col-body {
+    min-height: 420px;
+    background: #25211C;
+    border-radius: 14px;
+    border: 1px solid rgba(240,230,214,0.08);
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .week-col-empty { padding: 14px 6px; font-size: 11px; color: #766C5E; text-align: center; }
+
+  .week-appt {
+    background: #2D2823;
+    border-radius: 10px;
+    border-left: 3px solid #94AE82;
+    padding: 8px 9px;
+  }
+
+  .week-appt-time { font-size: 11px; font-weight: 600; color: #F0E6D6; }
+  .week-appt-title { font-size: 12px; font-weight: 600; color: #F0E6D6; margin-top: 2px; line-height: 1.25; }
+  .week-appt-who { font-size: 10.5px; color: #ADA192; margin-top: 3px; }
+}
